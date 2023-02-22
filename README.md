@@ -2,6 +2,7 @@
 
 - [Tanszéki weboldal](https://oktatas.iit.uni-miskolc.hu/doku.php?id=tanszek:oktatas:informatikai_rendszerek_epitese:informatikai_rendszerek_epitese)
 - [BProf gyakorlat](bprof.md)
+- [Szoftverkövetelmények](sw_requirements.md)
 
 ## 1. hét
 Követelmények ismertetése, szoftverek telepítése, ismerkedés az Angular keretrendszerrel.
