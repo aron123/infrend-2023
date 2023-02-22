@@ -1,6 +1,7 @@
 # Szoftverkövetelmények
 
 ## Szükséges szoftverek telepítése
+0. Laborgép használata esetén jelentkezzünk be a `Coder` nevű felhasználóval!
 1. [Visual Studio Code](https://code.visualstudio.com/) telepítése.
 2. [Node.js v18.x](https://nodejs.org/dist/latest-v18.x/node-v18.14.2-x64.msi) telepítése.
 3. Node.js telepítésének ellenőrzése, parancssorban: `node -v`
@@ -9,6 +10,26 @@
 6. [WAMPServer](https://sourceforge.net/projects/wampserver/files/WampServer%203/WampServer%203.0.0/wampserver3.3.0_x64.exe/download) telepítése.
 7. WAMPServer indítása, majd adatbázis kapcsolat ellenőrzése: http://localhost/phpmyadmin/ (belépési adatok: `root` / `root`)
 8. [Postman](https://dl.pstmn.io/download/latest/win64) telepítése.
+
+<details>
+<summary>Laborgépeken szükséges további beállítások</summary>
+
+Amennyiben a parancssorban a `node -v` és `ng --version` parancsokra hibaüzenetet kapunk, végezzük el a következő beállításokat. Ezek hatására a VSCode-ba integrált terminálban elérhetőek lesznek a szükséges parancsok.
+
+1. A VSCode megnyitása után nyomjuk le a `Ctrl+Shift+P` billentyűkombinációt, az ablak tetején megjelenik az ún. „Command Palette”.
+2. Gépeljük be az `open settings` keresőszót, majd válasszuk a „Preferences: Open Settings (JSON)” lehetőséget.
+3. Az így megnyitott JSON dokumentum egy tetszőleges pontjára másoljuk be az alábbiakat, majd mentsük el a fájlt:
+    ```json
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:APPDATA}\\npm;C:\\Program Files\\nodejs;${env:PATH}"
+    },
+    ```
+4. Az ablak tetején látható „Terminal” menüben válasszuk a „New Terminal” lehetőséget, majd futtassuk az alábbi parancsot, ellenőrizve a beállítás sikerességét:
+    ```
+    ng --version
+    ```
+</details>
 
 ## Új Angular projekt létrehozása és elindítása
 1. Parancssorban be kell lépni egy tetszőleges mappába, majd: `ng new infrend`
