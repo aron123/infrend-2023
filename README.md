@@ -8,6 +8,7 @@
 Követelmények ismertetése, szoftverek telepítése, ismerkedés az Angular keretrendszerrel.
 
 - [Getting started with Angular](https://angular.io/start)
+- [StackBlitz sample project](https://angular.io/generated/live-examples/getting-started-v0/stackblitz.html)
 
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
