@@ -8,7 +8,7 @@
 4. Angular telepítése, parancssorban: `npm install -g @angular/cli@latest`
 5. Angular telepítésének ellenőrzése, parancssorban: `ng version`
 6. [WAMPServer](https://sourceforge.net/projects/wampserver/files/WampServer%203/WampServer%203.0.0/wampserver3.3.0_x64.exe/download) telepítése.
-7. WAMPServer indítása, majd adatbázis kapcsolat ellenőrzése: http://localhost/phpmyadmin/ (belépési adatok: `root` / `root`)
+7. WAMPServer indítása, majd adatbázis kapcsolat ellenőrzése: http://localhost/phpmyadmin/ (belépési adatok: `root` / `<üres>`)
 8. [Postman](https://dl.pstmn.io/download/latest/win64) telepítése.
 
 <details>
