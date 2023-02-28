@@ -5,11 +5,12 @@
 1. [Visual Studio Code](https://code.visualstudio.com/) telepítése.
 2. [Node.js v18.x](https://nodejs.org/dist/latest-v18.x/node-v18.14.2-x64.msi) telepítése.
 3. Node.js telepítésének ellenőrzése, parancssorban: `node -v`
-4. Angular telepítése, parancssorban: `npm install -g @angular/cli@latest`
-5. Angular telepítésének ellenőrzése, parancssorban: `ng version`
-6. [WAMPServer](https://sourceforge.net/projects/wampserver/files/WampServer%203/WampServer%203.0.0/wampserver3.3.0_x64.exe/download) telepítése.
-7. WAMPServer indítása, majd adatbázis kapcsolat ellenőrzése: http://localhost/phpmyadmin/ (belépési adatok: `root` / `<üres>`)
-8. [Postman](https://dl.pstmn.io/download/latest/win64) telepítése.
+4. `Path` rendszerváltozó beállítása a következő értékre: `C:\Users\Coder\AppData\Roaming\npm`
+5. Angular telepítése, parancssorban: `npm install -g @angular/cli@latest`
+6. Angular telepítésének ellenőrzése, parancssorban: `ng version`
+7. [WAMPServer](https://sourceforge.net/projects/wampserver/files/WampServer%203/WampServer%203.0.0/wampserver3.3.0_x64.exe/download) telepítése.
+8. WAMPServer indítása, majd adatbázis kapcsolat ellenőrzése: http://localhost/phpmyadmin/ (belépési adatok: `root` / `<üres>`)
+9. [Postman](https://dl.pstmn.io/download/latest/win64) telepítése.
 
 <details>
 <summary>Laborgépeken szükséges további beállítások</summary>
