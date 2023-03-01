@@ -5,7 +5,7 @@
 1. [Visual Studio Code](https://code.visualstudio.com/) telepítése.
 2. [Node.js v18.x](https://nodejs.org/dist/latest-v18.x/node-v18.14.2-x64.msi) telepítése.
 3. Node.js telepítésének ellenőrzése, parancssorban: `node -v`
-4. `Path` rendszerváltozó beállítása a következő értékre: `C:\Users\Coder\AppData\Roaming\npm`
+4. **Csak a laborgépeken** szükséges a `Path` rendszerváltozóhoz hozzáadni a következő útvonalat: `C:\Users\Coder\AppData\Roaming\npm`
 5. Angular telepítése, parancssorban: `npm install -g @angular/cli@latest`
 6. Angular telepítésének ellenőrzése, parancssorban: `ng version`
 7. [WAMPServer](https://sourceforge.net/projects/wampserver/files/WampServer%203/WampServer%203.0.0/wampserver3.3.0_x64.exe/download) telepítése.
