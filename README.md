@@ -10,6 +10,15 @@ Követelmények ismertetése, szoftverek telepítése, ismerkedés az Angular ke
 - [Getting started with Angular](https://angular.io/start)
 - [StackBlitz sample project](https://angular.io/generated/live-examples/getting-started-v0/stackblitz.html)
 
+## 2. hét
+Angular alkalmazások felépítése. Bootstrap, grid rendszer. Sztring interpoláció és strukturális direktívák (`*ngIf`, `*ngFor`) az Angular keretrendszerben.
+
+- [Adatok](https://github.com/aron123/infrend-2023/blob/master/_data/applicants.ts)
+
+Dokumentációk, egyéb anyagok:
+- [Bootstrap](https://getbootstrap.com/docs)
+- [Emmet abbreviations](https://docs.emmet.io/abbreviations/syntax/) (+[Emmet in VSCode](https://code.visualstudio.com/docs/editor/emmet))
+
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
 ME-GÉIK Informatikai Intézet
