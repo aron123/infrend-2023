@@ -11,7 +11,7 @@ Követelmények ismertetése, szoftverek telepítése, ismerkedés az Angular ke
 - [StackBlitz sample project](https://angular.io/generated/live-examples/getting-started-v0/stackblitz.html)
 
 ## 2. hét
-Angular alkalmazások felépítése. Bootstrap, grid rendszer. Sztring interpoláció és strukturális direktívák (`*ngIf`, `*ngFor`) az Angular keretrendszerben.
+Angular alkalmazások felépítése, sztring interpoláció és strukturális direktívák (`*ngIf`, `*ngFor`). Bootstrap, grid rendszer.
 
 - [Adatok](https://github.com/aron123/infrend-2023/blob/master/_data/applicants.ts)
 
