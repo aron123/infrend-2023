@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row pt-2">
+    <div class="col-md-12">
+      <h4>Example Kft.</h4>
+      <h5>HR nyilvántartó rendszer</h5>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="text-end" *ngIf="!formVisible">
+        <button class="btn btn-sm btn-outline-primary" (click)="showForm()">Add new</button>
+      </div>
+      <ul>
+        <li *ngFor="let applicant of applicants" class="mt-2" [class.text-danger]="isSuspicious(applicant)">
+          <span class="fw-bold">{{ applicant.name }}</span> {{ applicant.role }}, {{ applicant.experience }} év
+          tapasztalattal, fizetési igény: {{ applicant.desiredSalary }} Ft
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteApplicant(applicant)">Delete</button>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <form *ngIf="formVisible">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newApplicant.name">
+        </div>
+        <div class="mb-3">
+          <label for="role" class="form-label">Role</label>
+          <input type="text" class="form-control" id="role" name="role" [(ngModel)]="newApplicant.role">
+        </div>
+        <div class="mb-3">
+          <label for="experience" class="form-label">Experience</label>
+          <select name="experience" id="experience" name="experience" class="form-select" [(ngModel)]="newApplicant.experience">
+            <option value="0-5">0-5</option>
+            <option value="5-10">5-10</option>
+            <option value="10+">10+</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="salary" class="form-label">Desired salary</label>
+          <input type="number" class="form-control" id="salary" name="salary" [(ngModel)]="newApplicant.desiredSalary">
+        </div>
+        <div class="text-end">
+          <button class="btn btn-sm btn-outline-success" (click)="createApplicant()">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
