@@ -17,6 +17,8 @@ Elmaradt.
 Angular alkalmazások felépítése, sztring interpoláció és strukturális direktívák (`*ngIf`, `*ngFor`). Bootstrap, grid rendszer.
 
 - [Adatok](https://github.com/aron123/infrend-2023/blob/master/_data/applicants.ts)
+- [HR nyilvántartó rendszer](https://github.com/aron123/infrend-2023/tree/master/hr-application) - [[DEMO](demos/hr-application)]
+- [Félkész projekt (csütörtöki csoport)](https://github.com/aron123/infrend-2023/tree/master/hr-application-cs10)
 
 Dokumentációk, egyéb anyagok:
 - [Bootstrap](https://getbootstrap.com/docs)

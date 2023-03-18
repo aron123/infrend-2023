@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hr-application": {
+    "hr-application-cs10": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../demos/hr-application",
+            "outputPath": "dist/hr-application-cs10",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -32,7 +32,6 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/infrend-2023/demos/hr-application/",
               "budgets": [
                 {
                   "type": "initial",
@@ -62,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "hr-application:build:production"
+              "browserTarget": "hr-application-cs10:build:production"
             },
             "development": {
-              "browserTarget": "hr-application:build:development"
+              "browserTarget": "hr-application-cs10:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hr-application:build"
+            "browserTarget": "hr-application-cs10:build"
           }
         },
         "test": {

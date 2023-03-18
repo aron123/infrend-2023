@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Example Kft.</h4>
+      <h5>HR Nyilvántartó rendszer</h5>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <ul>
+        <li *ngFor="let applicant of applicants"
+          [class.text-danger]="isSuspicious(applicant)">
+          {{ applicant.name }}, {{ applicant.role }}
+          {{ applicant.experience }} év tapasztalattal,
+          {{ applicant.desiredSalary }} Ft fizetési igénnyel
+          <button class="btn btn-sm btn-outline-danger"
+            (click)="removeApplicant(applicant)">
+            Törlés
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Név</label>
+          <input type="text" class="form-control" id="name">
+        </div>
+        <div class="mb-3">
+          <label for="role" class="form-label">Munkakör</label>
+          <input type="text" class="form-control" id="role">
+        </div>
+        <div class="mb-3">
+          <label for="experience" class="form-label">Tapasztalat</label>
+          <select class="form-select" id="experience">
+            <option value="0-5">0-5 év</option>
+            <option value="5-10">5-10 év</option>
+            <option value="10+">10+ év</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="salary" class="form-label">Fizetési igény</label>
+          <input type="number" class="form-control" id="salary">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
