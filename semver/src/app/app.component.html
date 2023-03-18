@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <app-version [version]="version"></app-version>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <app-control (versionChanged)="handleVersionChange($event)"></app-control>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <app-changelog [changelog]="changes"></app-changelog>
+    </div>
+  </div>
+</div>
+
