@@ -5,7 +5,7 @@
 ![Semantic versioning app's structure](./assets/semver-structure.drawio.png)
 
 <details>
-<summary>Komponensekre bontás</summary>
+<summary>Komponensek kommunikációja</summary>
 
 ![Semantic versioning app's components](./assets/semver-interaction.drawio.png)
 </details>
