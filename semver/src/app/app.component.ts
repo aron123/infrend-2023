@@ -27,7 +27,6 @@ export class AppComponent {
         oldValue: this.version.major - 1,
         newValue: this.version.major
       });
-      this.changes.unshift({ version: 'major', oldValue: 2, newValue: 3 });
     }
     else if (versionType === 'minor') {
       this.version.minor++;
