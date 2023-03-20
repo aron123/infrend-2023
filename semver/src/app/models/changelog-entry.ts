@@ -1,7 +1,7 @@
-import { VersionType } from "./change";
+import { VersionType } from "./version-type";
 
 export interface ChangelogEntry {
-    version: VersionType;
+    versionType: VersionType;
     oldValue: number;
     newValue: number;
 }

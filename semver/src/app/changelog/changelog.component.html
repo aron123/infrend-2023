@@ -3,7 +3,7 @@
 <div *ngIf="changelog.length !== 0">
     <ul>
         <li *ngFor="let change of changelog">
-            {{ change.version }} version changed from {{ change.oldValue }} to {{ change.newValue }}
+            {{ change.versionType }} version changed from {{ change.oldValue }} to {{ change.newValue }}
         </li>
     </ul>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VersionType } from './models/change';
+import { VersionType } from './models/version-type';
 import { ChangelogEntry } from './models/changelog-entry';
 import { Version } from './models/version';
 
@@ -23,7 +23,7 @@ export class AppComponent {
       this.version.minor = 0;
       this.version.patch = 0;
       this.changes.unshift({
-        version: versionType,
+        versionType: versionType,
         oldValue: this.version.major - 1,
         newValue: this.version.major
       });
@@ -32,7 +32,7 @@ export class AppComponent {
       this.version.minor++;
       this.version.patch = 0;
       this.changes.unshift({
-        version: versionType,
+        versionType: versionType,
         oldValue: this.version.minor - 1,
         newValue: this.version.minor
       });
@@ -40,7 +40,7 @@ export class AppComponent {
     else if (versionType === 'patch') {
       this.version.patch++;
       this.changes.unshift({
-        version: versionType,
+        versionType: versionType,
         oldValue: this.version.patch - 1,
         newValue: this.version.patch
       });

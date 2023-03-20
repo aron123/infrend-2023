@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { VersionType } from '../models/change';
+import { VersionType } from '../models/version-type';
 
 @Component({
   selector: 'app-control',
