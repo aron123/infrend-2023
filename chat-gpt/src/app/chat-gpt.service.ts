@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 import { CompletionRequest, CompletionResponse, Message } from 'src/models/chat-gpt';
 
 @Injectable({
@@ -18,6 +19,10 @@ export class ChatGptService {
       messages
     };
 
-    return this.http.post<CompletionResponse>(this.baseUrl, request);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + environment.OpenApiKey
+    });
+
+    return this.http.post<CompletionResponse>(this.baseUrl, request, { headers });
   }
 }
