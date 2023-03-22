@@ -1,9 +1,9 @@
 # BProf gyakorlat feladatok
 
-## 1-2. hét
+## 1-3. hét
 Szoftverkövetelmények telepítése, ismerkedés az Angular keretrendszer alapjaival.
 
-## 3. hét
+## 4. hét
 Tetszőleges nyilvántartó rendszer fejlesztése Angular keretrendszerben, Bootstrap helyett Tailwind CSS felhasználásával. A kezelt objektumoknak legyen legalább 4 mezője. Legyen lehetőség a tárolt rekordok listázására, törlésére, új rekord hozzáadására. Legyen felhasználva minél több Tailwind CSS által biztosított osztály.
 
 Segédanyagok:
