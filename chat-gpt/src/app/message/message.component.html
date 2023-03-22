@@ -1,1 +1,13 @@
-<p>message works!</p>
+<div class="row mb-2" *ngIf="message.role === 'assistant'">
+    <div class="col-md-8 p-2 bg-light rounded">
+        <h6 class="fw-bold">Assistant</h6>
+        {{ message.content }}
+    </div>
+</div>
+<div class="row mb-2" *ngIf="message.role === 'user'">
+    <div class="col-md-4"></div>
+    <div class="col-md-8 p-2 bg-primary text-light rounded">
+        <h6 class="fw-bold">{{ username }}</h6>
+        {{ message.content }}
+    </div>
+</div>

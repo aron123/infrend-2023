@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Message } from 'src/models/chat-gpt';
 
 @Component({
   selector: 'app-chat',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-
+  messages: Message[] = [
+    { role: 'user', content: 'test' },
+    { role: 'assistant', content: 'test2' },
+    { role: 'user', content: 'test' },
+    { role: 'assistant', content: 'test2' },
+    { role: 'user', content: 'test' },
+    { role: 'assistant', content: 'test2' },
+    { role: 'user', content: 'test' },
+    { role: 'assistant', content: 'test2' },
+  ];
 }

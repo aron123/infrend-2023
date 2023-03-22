@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Message } from 'src/models/chat-gpt';
 
 @Component({
   selector: 'app-message',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent {
-
+  @Input() message!: Message;
+  username = localStorage.getItem('username');
 }
