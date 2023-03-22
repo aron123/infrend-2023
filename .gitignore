@@ -2,4 +2,4 @@ node_modules/
 .angular/
 dist/
 
-src/environments/environment.development.ts
+chat-gpt/src/environments/environment.development.ts
