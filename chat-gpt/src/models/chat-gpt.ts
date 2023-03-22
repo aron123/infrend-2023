@@ -1,5 +1,6 @@
 export interface CompletionRequest {
     model: 'gpt-3.5-turbo';
+    max_tokens: number;
     messages: Message[];
 }
 

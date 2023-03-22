@@ -16,6 +16,7 @@ export class ChatGptService {
   getCompletion(messages: Message[]): Observable<CompletionResponse> {
     const request: CompletionRequest = {
       model: 'gpt-3.5-turbo',
+      max_tokens: 50,
       messages
     };
 
