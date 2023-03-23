@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'hr-application-cs10'`, () => {
+  it(`should have as title 'semver-cs10'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('hr-application-cs10');
+    expect(app.title).toEqual('semver-cs10');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('hr-application-cs10 app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('semver-cs10 app is running!');
   });
 });

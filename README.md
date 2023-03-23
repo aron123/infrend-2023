@@ -18,7 +18,6 @@ Angular alkalmazások felépítése, sztring interpoláció és strukturális di
 
 - [Adatok](https://github.com/aron123/infrend-2023/blob/master/_data/applicants.ts)
 - [HR nyilvántartó rendszer](https://github.com/aron123/infrend-2023/tree/master/hr-application) - [[DEMO](demos/hr-application)]
-- [Félkész projekt (csütörtöki csoport)](https://github.com/aron123/infrend-2023/tree/master/hr-application-cs10)
 
 Dokumentációk, egyéb anyagok:
 - [Bootstrap](https://getbootstrap.com/docs)
@@ -28,6 +27,8 @@ Dokumentációk, egyéb anyagok:
 Angular alkalmazás komponensekre bontása, komponensek közötti kommunikáció. Kódgenerálás (`ng generate`), adatkötés eszközei (`@Input`, `@Output` dekorátorok, `EventEmitter` osztály).
 
 - [Feladatok több komponens használatára](component-interaction.md)
+    - [Szemantikus verziószámozás](https://github.com/aron123/infrend-2023/tree/master/semver) - [[DEMO](demos/semver)]
+    - [Félkész szemantikus verziószámozás (csütörtöki csoport)](https://github.com/aron123/infrend-2023/tree/master/semver-cs10)
 
 Dokumentációk, egyéb anyagok:
 - [Angular Components Overview](https://angular.io/guide/component-overview)
