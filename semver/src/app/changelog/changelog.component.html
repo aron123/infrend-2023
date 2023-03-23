@@ -1,0 +1,9 @@
+<h5>Changelog</h5>
+<div *ngIf="changelog.length === 0">There are no changes.</div>
+<div *ngIf="changelog.length !== 0">
+    <ul>
+        <li *ngFor="let change of changelog">
+            {{ change.versionType }} version changed from {{ change.oldValue }} to {{ change.newValue }}
+        </li>
+    </ul>
+</div>

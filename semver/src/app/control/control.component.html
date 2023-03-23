@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-4">
+        <button class="btn btn-sm btn-primary" (click)="this.versionChanged.emit('major')">Increment major</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-sm btn-info" (click)="this.versionChanged.emit('minor')">Increment minor</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-sm btn-secondary" (click)="this.versionChanged.emit('patch')">Increment patch</button>
+    </div>
+</div>
