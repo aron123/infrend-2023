@@ -35,6 +35,18 @@ Dokumentációk, egyéb anyagok:
 - [Sharing data between child and parent components](https://angular.io/guide/inputs-outputs)
 - [Semantic Versioning 2.0.0](https://semver.org/)
 
+## 5. hét
+Az Angular router használata, guard-ok. HTTP kérések kezelése, service-k.
+
+- HTTP protokoll
+- [Modellek](https://github.com/aron123/infrend-2023/blob/master/_data/chat-gpt.models.ts)
+- [Görgetés script](_data/scrolling.md)
+
+Egyéb anyagok:
+- [Routing in SPAs](https://dev.to/marcomonsanto/routing-in-spas-173i)
+- [Common routing tasks in Angular](https://angular.io/guide/router)
+- [OpenAI API](https://platform.openai.com/docs/introduction)
+
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
 ME-GÉIK Informatikai Intézet
