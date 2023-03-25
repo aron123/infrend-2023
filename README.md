@@ -38,9 +38,9 @@ Dokumentációk, egyéb anyagok:
 ## 5. hét
 Az Angular router használata, guard-ok. HTTP kérések kezelése, service-k.
 
-- HTTP protokoll
-- [Modellek](https://github.com/aron123/infrend-2023/blob/master/_data/chat-gpt.models.ts)
-- [Görgetés script](_data/scrolling.md)
+- [HTTP protokoll](http.md)
+- [Adatmodell](https://github.com/aron123/infrend-2023/blob/master/_data/chat-gpt.models.ts)
+- [Görgetés script](scrolling.md)
 
 Egyéb anyagok:
 - [Routing in SPAs](https://dev.to/marcomonsanto/routing-in-spas-173i)
