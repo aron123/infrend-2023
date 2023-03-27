@@ -75,14 +75,14 @@ X-Ratelimit-Reset: 1616072536
 Cache-Control: no-cache
 Pragma: no-cache
 
-{ "id": 101, "name": "feri" }
+{ "id": 101, "name": "feri", "gender": "male", "age": 15 }
 ```
 
-A válasz egyebek mellett tartalmaz egy **státuszkódot** és egy **üzenetet**. A státuszkód gépi, az üzenet emberi feldolgozásra szolgál.<br>
+A válasz egyebek mellett tartalmaz egy **státuszkódot**, ami a művelet sikerességéről ad információt.<br>
 
 Ezt követik a válaszhoz tartozó fejlécek.
 
-A törzs rész opcionális. A fenti válaszban a szerver visszaküldte az adatbázishoz hozzáadott felhasználó adatait.
+A törzs rész opcionális: a fenti válaszban a szerver visszaküldte az adatbázishoz hozzáadott felhasználó adatait.
 
 #### HTTP státuszkódok
 Az egyes HTTP státuszkódok jelentését a HTTP specifikációja tartalmazza, általánosságban a következők írhatóak le róluk:
