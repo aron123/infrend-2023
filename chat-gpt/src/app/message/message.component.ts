@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Message } from 'src/models/chat-gpt';
+import { Message } from 'src/app/chat-gpt.models';
 
 @Component({
   selector: 'app-message',

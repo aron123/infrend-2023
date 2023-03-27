@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Message } from 'src/models/chat-gpt';
+import { Message } from 'src/app/chat-gpt.models';
 import { ChatGptService } from '../services/chat-gpt.service';
 
 @Component({
