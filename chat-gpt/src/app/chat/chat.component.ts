@@ -1,6 +1,6 @@
-import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Message } from 'src/models/chat-gpt';
-import { ChatGptService } from '../chat-gpt.service';
+import { ChatGptService } from '../services/chat-gpt.service';
 
 @Component({
   selector: 'app-chat',
