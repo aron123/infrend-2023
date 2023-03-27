@@ -19,3 +19,5 @@ A következő alkalmazás elkészítése: [[Screenshot]](assets/component-intera
 - legyen szavazási lehetőség (lehet többször is szavazni),
 - az eredmény viccenként és összesítve is jelenjen meg,
 - a legalább +50-es eredményt elért vicceknél jelenjen meg a "Community Approved" jelvény.
+
+A fenti feladat helyett választható az [itt látható 2. feladat is](component-interaction.md) (_a)_ és _b)_ résszel együtt!).
