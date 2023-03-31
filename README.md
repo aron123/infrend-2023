@@ -28,7 +28,6 @@ Angular alkalmazás komponensekre bontása, komponensek közötti kommunikáció
 
 - [Feladatok több komponens használatára](component-interaction.md)
     - [Szemantikus verziószámozás](https://github.com/aron123/infrend-2023/tree/master/semver) - [[DEMO](demos/semver)]
-    - [Félkész szemantikus verziószámozás (csütörtöki csoport)](https://github.com/aron123/infrend-2023/tree/master/semver-cs10)
 
 Dokumentációk, egyéb anyagok:
 - [Angular Components Overview](https://angular.io/guide/component-overview)
@@ -36,15 +35,26 @@ Dokumentációk, egyéb anyagok:
 - [Semantic Versioning 2.0.0](https://semver.org/)
 
 ## 5. hét
-Az Angular router használata, guard-ok. HTTP kérések kezelése, service-k.
+Az Angular router használata, guard-ok.
 
-- [HTTP protokoll](http.md)
 - [Adatmodell](https://github.com/aron123/infrend-2023/blob/master/_data/chat-gpt.models.ts)
-- [Görgetés script](scrolling.md)
+
+Projektek:
+- [Chat alkalmazás (kedd, 16 óra)](https://github.com/aron123/infrend-2023/tree/master/chat-gpt-k16)
+- [Chat alkalmazás (csütörtök, 10 óra)](https://github.com/aron123/infrend-2023/tree/master/chat-gpt-cs10)
 
 Egyéb anyagok:
 - [Routing in SPAs](https://dev.to/marcomonsanto/routing-in-spas-173i)
 - [Common routing tasks in Angular](https://angular.io/guide/router)
+
+## 6. hét
+HTTP kérések kezelése Angular-ban, service-k.
+
+- [HTTP protokoll](http.md)
+- [Görgetés script](scrolling.md)
+- Chat alkalmazás: lásd az előző hétnél
+
+Egyéb anyagok:
 - [OpenAI API](https://platform.openai.com/docs/introduction)
 
 ## Elérhetőség
