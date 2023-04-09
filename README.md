@@ -39,9 +39,8 @@ Az Angular router használata, guard-ok.
 
 - [Adatmodell](https://github.com/aron123/infrend-2023/blob/master/_data/chat-gpt.models.ts)
 
-Projektek:
-- [Chat alkalmazás (kedd, 16 óra)](https://github.com/aron123/infrend-2023/tree/master/chat-gpt-k16)
-- [Chat alkalmazás (csütörtök, 10 óra)](https://github.com/aron123/infrend-2023/tree/master/chat-gpt-cs10)
+Projekt:
+- [ChatGPT alkalmazás](https://github.com/aron123/infrend-2023/tree/master/chat-gpt)
 
 Egyéb anyagok:
 - [Routing in SPAs](https://dev.to/marcomonsanto/routing-in-spas-173i)
@@ -52,7 +51,9 @@ HTTP kérések kezelése Angular-ban, service-k.
 
 - [HTTP protokoll](http.md)
 - [Görgetés script](scrolling.md)
-- Chat alkalmazás: lásd az előző hétnél
+
+Projekt:
+- [ChatGPT alkalmazás](https://github.com/aron123/infrend-2023/tree/master/chat-gpt)
 
 Egyéb anyagok:
 - [OpenAI API](https://platform.openai.com/docs/introduction)

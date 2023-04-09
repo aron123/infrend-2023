@@ -1,6 +1,10 @@
 # ChatGpt
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
+A simple Angular-based ChatGPT client with basic user management.
+
+**Important:** You should have an [OpenAI API key](https://platform.openai.com/docs/api-reference/authentication) to make this example work.
+
+If you have a valid API key, insert it to `src/environments/environment.development.ts`, then run `npm start`.
 
 ## Development server
 
