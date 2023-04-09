@@ -58,6 +58,14 @@ Projekt:
 Egyéb anyagok:
 - [OpenAI API](https://platform.openai.com/docs/introduction)
 
+## 7. hét
+Szerveroldal fejlesztése. HTTP API készítése Express.js segítségével.
+
+- [Express.js alapok](express.md)
+
+Egyéb anyagok:
+- [Express Docs](https://expressjs.com/)
+
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
 ME-GÉIK Informatikai Intézet
