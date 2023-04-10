@@ -77,7 +77,9 @@ A tábláink gyakran kapcsolatban vannak egymással. Három alap relációt kül
 - **Many-to-Many**: N:M reláció, ahol 1 rekord több másik táblabeli rekorddal is össze lehet kapcsolva, és ez fordítva is teljesül. Ilyen pl. a _Felhasználók_ és _Szerepkörök_ tábla, ahol egy felhasználónak több szerepköre is lehet és egy szerepkör több felhasználóhoz is tartozhat.
 
 ## One-to-Many példa
-Adjunk hozzá két entitást az `src/entity/` mappához: `Dog.ts` és `Owner.ts`! Az 1:N relációt mindkét osztályban jelölnünk kell, a `ManyToOne` és `OneToMany` dekorátorokkal.
+Adjunk hozzá két entitást az `src/entity/` mappához, `Dog.ts` és `Owner.ts` elnevezéssel!
+
+Az 1:N relációt mindkét osztályban jelölnünk kell, a `ManyToOne` és `OneToMany` dekorátorokkal.
 
 ```ts
 // Dog.ts
@@ -97,7 +99,7 @@ export class Dog {
 }
 ```
 
-Az osztály `owner` adattagja feletti dekorátor jelzi, hogy „több kutyának egy tulajdonosa lehet”. Az első paraméter jelzi, hogy a reláció az `Owner` osztályra mutat. A második paraméter jelzi, hogy az `Owner` osztályban a `dogs` adattaggal lesz összekapcsolva.
+Az osztály `owner` adattagja feletti dekorátor jelzi, hogy „több kutyának egy tulajdonosa is lehet”. Az első paraméter jelzi, hogy a reláció az `Owner` osztályra mutat. A második paraméter jelzi, hogy az `Owner` osztályban a `dogs` adattaggal lesz összekapcsolva.
 
 ```ts
 // Owner.ts
@@ -117,9 +119,9 @@ export class Owner {
 }
 ```
 
-Az `Owner` osztály `dogs` adattagja feletti dekorátor jelzi, hogy „egy gazdának több kutyája lehet”. Az első paraméter jelzi, hogy a reláció a `Dog` osztályra mutat. A második paraméter jelzi, hogy a `Dog` osztályban az `owner` adattaggal lesz összekapcsolva.
+Az `Owner` osztály `dogs` adattagja feletti dekorátor jelzi, hogy „egy gazdának több kutyája is lehet”. Az első paraméter jelzi, hogy a reláció a `Dog` osztályra mutat. A második paraméter jelzi, hogy a `Dog` osztályban az `owner` adattaggal lesz összekapcsolva.
 
-Módosítsuk a `data-source.ts` fájlt, az `entities` tömbhöz adjuk hozzá az új osztályokat: `entities: [User, Dog, Owner]`.
+Módosítsuk a `data-source.ts` fájlt, az `entities` tömbhöz adjuk hozzá az új entitásokat: `entities: [Dog, Owner]`.
 
 Módosítsuk továbbá az `index.ts` fájlt!
 
@@ -149,11 +151,11 @@ AppDataSource.initialize().then(async () => {
 });
 ```
 
-Futtassuk le a kódot, és nézzük meg, hogy mi jött létre az adatbázisban! Látható, hogy az ORM rendszer létrehozta a táblákat, a `dog` táblában az `owner`-re mutató id-vel. 
+Futtassuk le a kódot (`npm start`), és nézzük meg, hogy mi jött létre az adatbázisban!
 
-Láthatjuk még azt is, hogy az `owner` táblában 1 sor van, de a `dog` táblában nem jött létre semmi.
+Látható, hogy az ORM rendszer létrehozta a táblákat, a `dog` táblában az `owner`-re mutató id-vel. Láthatjuk még azt is, hogy az `owner` táblában 1 sor van, de a `dog` táblában nem jött létre semmi.
 
-Azért, hogy létrejöjjenek a kutyákhoz tartozó rekordok is, az `Owner.ts`-ben módosítsuk az 1:N relációt:
+Azért, hogy létrejöjjenek a kutyákhoz tartozó rekordok is, az `Owner.ts`-ben módosítsuk az 1:N relációt leíró dekorátort:
 
 ```ts
 @OneToMany(type => Dog, dog => dog.owner, { cascade: true })
@@ -161,7 +163,7 @@ Azért, hogy létrejöjjenek a kutyákhoz tartozó rekordok is, az `Owner.ts`-be
 
 A `cascade: true` engedélyezi, hogy a gazda létrehozásakor a kutya is létrejöjjön. Mi történik viszont törlés esetén, ha egy gazdát törlünk? Próbáljuk ki!
 
-Az `index.ts`-ben a save() után rögtön tegyük be a következő sort, és futtassuk újra az alkalmazást:
+Az `index.ts`-ben a save() után rögtön tegyük be a következő sort, és futtassuk újra az alkalmazást (`npm start`):
 
 ```ts
 await AppDataSource.manager.remove(owner);
@@ -254,6 +256,6 @@ AppDataSource.initialize().then(async () => {
 });
 ```
 
-Futtassuk a kódot, majd a PHPMyAdmin felületén ellenőrizzük, hogy mi történt az adatbázisban:
+Futtassuk a kódot (`npm start`), majd a PHPMyAdmin felületén ellenőrizzük, hogy mi történt az adatbázisban:
 
 Létrejött egy `user` és egy `role` tábla a felhasználók és a szerepkörök tárolásához, valamint létrejött egy `user_roles_role` elnevezésű kapcsolótábla is, mely a több-több kapcsolatot valósítja meg az entitások között.
