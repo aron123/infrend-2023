@@ -14,13 +14,13 @@ npm install -g typescript ts-node ts-node-dev
 5. Típus csomagok telepítése: `npm install @types/node @types/express --save-dev`
 6. `index.ts` fájl létrehozása.
 
-## Szerver indítása:
+## Szerver indítása
 `ts-node-dev index.ts`
 
-## Express alkalmazás működése
+## Express alkalmazás működési logikája
 Az Express alkalmazás ún. „middleware”-ek segítségével szolgálja ki a klienstől érkező kéréseket. A middleware egy függvény, mely valamilyen specifikus feladatot lát el.
 
-A kliens kérése middleware függvények sorozatán halad át, mely során előáll a szerver kérésre adott válasza.
+A kliens kérése middleware függvények sorozatán halad át, mely során előáll a kérésre adott válasz.
 
 > Express is a routing and middleware web framework that has minimal functionality of its own: An Express application is essentially a series of middleware function calls.
 > 

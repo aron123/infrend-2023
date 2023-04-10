@@ -59,12 +59,14 @@ Egyéb anyagok:
 - [OpenAI API](https://platform.openai.com/docs/introduction)
 
 ## 7. hét
-Szerveroldal fejlesztése. HTTP API készítése Express.js segítségével.
+Szerveroldal fejlesztése. HTTP szerver készítése Express.js segítségével. Adatbázis kezelés TypeORM-el.
 
-- [Express.js alapok](express.md)
+- [Express.js alapok](express.md) (HTTP szerver)
+- [TypeORM alapok](typeorm.md) (Adatbáziskezelés)
 
 Egyéb anyagok:
 - [Express Docs](https://expressjs.com/)
+- [TypeORM Docs](https://typeorm.io/)
 
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
