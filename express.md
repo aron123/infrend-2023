@@ -22,6 +22,8 @@ Az Express alkalmazás ún. „middleware”-ek segítségével szolgálja ki a 
 
 A kliens kérése middleware függvények sorozatán halad át, mely során előáll a kérésre adott válasz.
 
+([Néhány gyakran használt middleware dokumentációja](https://expressjs.com/en/resources/middleware.html))
+
 > Express is a routing and middleware web framework that has minimal functionality of its own: An Express application is essentially a series of middleware function calls.
 > 
 > Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle.
