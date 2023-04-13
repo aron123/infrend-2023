@@ -22,8 +22,8 @@ A következő alkalmazás elkészítése: [[Screenshot]](assets/component-intera
 
 A fenti feladat helyett választható az [itt látható 2. feladat is](component-interaction.md) (legalább 3 komponensre bontva, _a)_ és _b)_ résszel együtt!).
 
-## 7-8-9. hét
-Alkalmazás készítése a GitHub API felhasználásával:
+## 7-9. hét
+A következő hetek feladata egy alkalmazás készítése a GitHub API felhasználásával:
 - A felület stílusának kialakításához valamelyik tanult CSS-könyvtárat (Bootstrap vagy Tailwind) használni kell.
 - A lapok közötti navigáció a beépített Angular Router-rel történjen.
 - A listák megjelenítésekor nem kell lapozási lehetőséget biztosítani, az API által alapértelmezetten visszaküldött számú találat megjelenítése elegendő.
@@ -33,6 +33,8 @@ Elkészítendő lapok:
 2) **Felhasználói adatlap**: A keresés során megtalált felhasználóknak meg lehet nyitni az adatlapját, ahol megjelenik róluk néhány alapinformáció, valamint a rendszerben szereplő repository-jaik. A repository-k kattinthatók, a linkek az adott repo adatlapjára visznek.
 3) **Repository keresés lap**: Be lehet írni a keresett repository nevét, egy "Keresés" gombra kattintva megjelennek a GitHub API-tól kapott találatok.
 4) **Repository adatlap**: A keresés során megtalált repository-knak meg lehet nyitni az adatlapját, ahol megjelenik néhány alapadatuk.
+
+A 7. héten a GitHub API megismerése a cél: össze kell gyűjteni és ki kell próbálni azokat az API hívásokat, amik szükségesek az ismertetett alkalmazás megvalósításához. Egy olyan dokumentum összeállítása a cél, ami tartalmazza a szükséges adatlekérdező műveletek elérését, rövid leírását, és egy-egy screenshotot a Postman-ből, amiben sikeres API hívás látható.
 
 Referencia dokumentáció:
 - [Általános API-leírás](https://docs.github.com/en/rest/overview/resources-in-the-rest-api)
