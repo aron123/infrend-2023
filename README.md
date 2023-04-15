@@ -62,7 +62,9 @@ Egyéb anyagok:
 Szerveroldal fejlesztése. HTTP szerver készítése Express.js segítségével. Adatbázis kezelés TypeORM-el.
 
 - [Express.js alapok](express.md) (HTTP szerver)
+    - [Greeting API projekt](https://github.com/aron123/infrend-2023/tree/master/greeting-api)
 - [TypeORM alapok](typeorm.md) (Adatbáziskezelés)
+    - [Tutorial projekt](https://github.com/aron123/infrend-2023/tree/master/typeorm-tutorial)
 
 Egyéb anyagok:
 - [Express Docs](https://expressjs.com/)
