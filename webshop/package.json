@@ -1,0 +1,17 @@
+{
+  "name": "webshop",
+  "version": "1.0.0",
+  "description": "Wrapper package for webshop project's individual modules.",
+  "main": "index.js",
+  "workspaces": [
+    "webshop-models",
+    "webshop-client",
+    "webshop-server"
+  ],
+  "scripts": {
+    "start:client": "npm start -w webshop-client",
+    "start:server": "npm start -w webshop-server"
+  },
+  "author": "Kiss, Áron",
+  "license": "MIT"
+}
