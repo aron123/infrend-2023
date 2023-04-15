@@ -69,7 +69,7 @@ Szerveroldal fejlesztése. HTTP szerver készítése Express.js segítségével.
 ## 8. hét
 Kliens- és szerveroldal összekapcsolása. Példa projekt alapjainak elkészítése.
 
-- [Termékadatbázis](product-database.json)
+- [Termékadatbázis](product-database.md)
 
 Egyéb anyagok:
 - [Express Docs](https://expressjs.com/)
