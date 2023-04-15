@@ -66,14 +66,20 @@ Szerveroldal fejlesztése. HTTP szerver készítése Express.js segítségével.
 - [TypeORM alapok](typeorm.md) (Adatbáziskezelés)
     - [Tutorial projekt](https://github.com/aron123/infrend-2023/tree/master/typeorm-tutorial)
 
+Egyéb anyagok:
+- [Express Docs](https://expressjs.com/)
+- [TypeORM Docs](https://typeorm.io/)
+
 ## 8. hét
 Kliens- és szerveroldal összekapcsolása. Példa projekt alapjainak elkészítése.
 
 - [Termékadatbázis](product-database.md)
+- Webshop projekt
 
 Egyéb anyagok:
-- [Express Docs](https://expressjs.com/)
-- [TypeORM Docs](https://typeorm.io/)
+- [NPM Workspaces](https://docs.npmjs.com/cli/v9/using-npm/workspaces?v=true)
+- [Data Transfer Object tervezési minta](https://en.wikipedia.org/wiki/Data_transfer_object)
+- [Angular - Proxying to a backend server](https://angular.io/guide/build#proxying-to-a-backend-server)
 
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
