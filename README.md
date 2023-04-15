@@ -66,6 +66,11 @@ Szerveroldal fejlesztése. HTTP szerver készítése Express.js segítségével.
 - [TypeORM alapok](typeorm.md) (Adatbáziskezelés)
     - [Tutorial projekt](https://github.com/aron123/infrend-2023/tree/master/typeorm-tutorial)
 
+## 8. hét
+Kliens- és szerveroldal összekapcsolása. Példa projekt alapjainak elkészítése.
+
+- [Termékadatbázis](product-database.json)
+
 Egyéb anyagok:
 - [Express Docs](https://expressjs.com/)
 - [TypeORM Docs](https://typeorm.io/)
