@@ -6,3 +6,10 @@ export interface ProductDTO {
     imgUrl: string;
     brand: string;
 }
+
+export interface UserDTO {
+    id: number;
+    firstName: string;
+    lastName: string;
+    age: number;
+}
