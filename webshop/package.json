@@ -4,9 +4,9 @@
   "description": "Wrapper package for webshop project's individual modules.",
   "main": "index.js",
   "workspaces": [
-    "webshop-models",
-    "webshop-client",
-    "webshop-server"
+    "./webshop-models",
+    "./webshop-client",
+    "./webshop-server"
   ],
   "scripts": {
     "start:client": "npm start -w webshop-client",
