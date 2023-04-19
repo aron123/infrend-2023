@@ -1,0 +1,17 @@
+{
+  "name": "webshop-k16",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:client": "npm run start -w webshop-client",
+    "start:server": "npm run start -w webshop-server"
+  },
+  "workspaces": [
+    "./webshop-client",
+    "./webshop-models",
+    "./webshop-server"
+  ],
+  "author": "",
+  "license": "ISC"
+}
