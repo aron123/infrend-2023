@@ -1,5 +1,5 @@
 # Monorepo projekt létrehozása
-A monorepo (vagy monolithic repository) egy olyan szoftvertervezési megközelítés, amelyben egyetlen központi kódtárban tárolják az összes szoftverfejlesztéshez szükséges forrásfájlt, dokumentációt és konfigurációs álományt. Ezzel szemben a hagyományos megközelítés a multi-repo, amelyben minden projektnek külön repository-ja van.
+A monorepo (vagy monolithic repository) egy olyan szoftvertervezési megközelítés, amelyben egyetlen központi kódtárban tárolják az összes szoftverfejlesztéshez szükséges forrásfájlt, dokumentációt és konfigurációs állományt. Ezzel szemben a hagyományos megközelítés a multi-repo, amelyben minden projektnek külön repository-ja van.
 
 A monorepo előnyei közé tartozik az egyszerűbb kód megosztás, a könnyebb újrafelhasználhatóság és a könnyebb verziókezelés. Több projektből álló szoftveralkalmazások esetén a monorepo lehetővé teszi, hogy az összes projektet és modult egyszerre kezeljék, ami megkönnyíti az összetett funkciók integrálását és a függőségek kezelését. Azonban nagyon nagy projektek esetén a monorepo nehezebben kezelhetővé válhat, és gyakran [jelentős infrastrukturális kihívásokkal jár](https://qeunit.com/blog/how-google-does-monorepo/).
 
