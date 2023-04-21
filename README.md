@@ -74,7 +74,11 @@ Egyéb anyagok:
 Kliens- és szerveroldal összekapcsolása. Példa projekt alapjainak elkészítése.
 
 - [Termékadatbázis](product-database.md)
-- Webshop projekt
+
+- [Monorepo létrehozása](monorepo.md)
+
+- [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
+- [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
 
 Egyéb anyagok:
 - [NPM Workspaces](https://docs.npmjs.com/cli/v9/using-npm/workspaces?v=true)

@@ -1,0 +1,17 @@
+{
+  "name": "webshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "workspaces": [
+    "./webshop-models",
+    "./webshop-client",
+    "./webshop-server"
+  ],
+  "scripts": {
+    "start:client": "npm run start -w webshop-client",
+    "start:server": "npm run start -w webshop-server"
+  },
+  "author": "",
+  "license": "ISC"
+}
