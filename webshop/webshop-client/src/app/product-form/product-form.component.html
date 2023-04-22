@@ -31,6 +31,12 @@
                 <label for="brand" class="form-label">Márka</label>
                 <input type="text" class="form-control" id="brand" name="brand" formControlName="brand">
             </div>
+            <div class="mb-3">
+                <label for="user" class="form-label">Tulajdonos</label>
+                <select class="form-select" name="user" id="user" formControlName="user" [compareWith]="compareUsers">
+                    <option [ngValue]="{ id: user.id }" *ngFor="let user of users">{{ user.firstName }} {{ user.lastName }}</option>
+                </select>
+            </div>
             <div class="text-end">
                 <button class="btn btn-outline-primary" (click)="saveProduct()">Mentés</button>
             </div>

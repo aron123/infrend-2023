@@ -1,5 +1,6 @@
 import express from 'express';
 import { ProductController } from './controller/product.controller';
+import { UserController } from './controller/user.controller';
 
 export function getRouter() {
     const router = express.Router();
@@ -11,6 +12,10 @@ export function getRouter() {
     router.post('/products', productController.create);
     router.put('/products', productController.update);
     router.delete('/products/:id', productController.delete);
+
+    const userController = new UserController();
+
+    router.get('/users', userController.getAll);
 
     return router;
 }

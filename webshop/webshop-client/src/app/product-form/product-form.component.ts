@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ProductDTO } from 'webshop-models';
+import { ProductDTO, UserDTO } from 'webshop-models';
 import { ProductService } from '../services/product.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-product-form',
@@ -12,13 +13,16 @@ import { ProductService } from '../services/product.service';
 })
 export class ProductFormComponent implements OnInit {
 
+  users: UserDTO[] = [];
+
   productForm = this.formBuilder.group({
     id: [0],
     title: [''],
     description: [''],
     price: [0],
     imgUrl: ['https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png'],
-    brand: ['']
+    brand: [''],
+    user: this.formBuilder.control<UserDTO | null>(null)
   });
 
   isNewModel = true;
@@ -27,6 +31,7 @@ export class ProductFormComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private productService: ProductService,
+    private userService: UserService,
     private notificationService: ToastrService) { }
 
   ngOnInit(): void {
@@ -41,6 +46,14 @@ export class ProductFormComponent implements OnInit {
         }
       })
     }
+
+    this.userService.getUsers().subscribe({
+      next: (users) => this.users = users,
+      error: (err) => {
+        console.error(err);
+        this.notificationService.error('Can not load users.', 'Error');
+      }
+    })
   }
 
   resetForm() {
@@ -50,7 +63,8 @@ export class ProductFormComponent implements OnInit {
       description: '',
       price: 0,
       imgUrl: 'https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png',
-      brand: ''
+      brand: '',
+      user: null
     };
 
     this.productForm.setValue(defaultData);
@@ -90,5 +104,9 @@ export class ProductFormComponent implements OnInit {
         this.notificationService.error('Unable to save product.', 'Error');
       }
     });
+  }
+
+  compareUsers(user1: UserDTO, user2: UserDTO): boolean {
+    return user1 && user2 && user1.id === user2.id;
   }
 }

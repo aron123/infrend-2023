@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 import { UserDTO } from "webshop-models"
+import { Product } from "./Product"
 
 @Entity()
 export class User implements UserDTO {
@@ -16,4 +17,6 @@ export class User implements UserDTO {
     @Column()
     age: number
 
+    @OneToMany(() => Product, (product) => product.user)
+    products: Product[];
 }

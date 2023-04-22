@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductDTO } from 'webshop-models';
+import { User } from './User';
 
 @Entity()
 export class Product implements ProductDTO {
@@ -20,4 +21,7 @@ export class Product implements ProductDTO {
     
     @Column({ nullable: true })
     brand: string;
+
+    @ManyToOne(() => User, (user) => user.products, { eager: true })
+    user: User;
 }

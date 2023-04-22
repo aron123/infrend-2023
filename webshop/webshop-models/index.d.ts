@@ -5,6 +5,7 @@ export interface ProductDTO {
     price: number;
     imgUrl: string;
     brand: string;
+    user: UserDTO | null;
 }
 
 export interface UserDTO {
