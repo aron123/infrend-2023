@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryDTO, ProductDTO, UserDTO } from 'webshop-models';
@@ -20,10 +20,10 @@ export class ProductFormComponent implements OnInit {
 
   productForm = this.formBuilder.group({
     id: [0],
-    title: [''],
+    title: ['', Validators.required],
     description: [''],
-    price: [0],
-    imgUrl: ['https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png'],
+    price: [0, Validators.min(0.5)],
+    imgUrl: ['https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png', Validators.pattern(/^http/)],
     brand: [''],
     user: this.formBuilder.control<UserDTO | null>(null),
     categories: this.formBuilder.control<CategoryDTO[]>([])
@@ -85,6 +85,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   saveProduct() {
+    if (this.productForm.invalid) {
+      this.productForm.markAllAsTouched();
+      this.notificationService.error('Érvénytelen adatok.', 'Hiba');
+      return;
+    }
+
     const product = this.productForm.value as ProductDTO;
 
     if (this.isNewModel) {
