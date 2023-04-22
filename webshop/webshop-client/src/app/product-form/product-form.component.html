@@ -32,6 +32,12 @@
                 <input type="text" class="form-control" id="brand" name="brand" formControlName="brand">
             </div>
             <div class="mb-3">
+                <label for="categories" class="form-label">Kategóriák</label>
+                <select class="form-select" multiple name="categories" id="categories" formControlName="categories" [compareWith]="compareCategories">
+                    <option [ngValue]="{ id: category.id }" *ngFor="let category of categories">{{ category.title }}</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="user" class="form-label">Tulajdonos</label>
                 <select class="form-select" name="user" id="user" formControlName="user" [compareWith]="compareUsers">
                     <option [ngValue]="{ id: user.id }" *ngFor="let user of users">{{ user.firstName }} {{ user.lastName }}</option>

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ProductDTO, UserDTO } from 'webshop-models';
+import { CategoryDTO, ProductDTO, UserDTO } from 'webshop-models';
+import { CategoryService } from '../services/category.service';
 import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
 
@@ -15,6 +16,8 @@ export class ProductFormComponent implements OnInit {
 
   users: UserDTO[] = [];
 
+  categories: CategoryDTO[] = [];
+
   productForm = this.formBuilder.group({
     id: [0],
     title: [''],
@@ -22,7 +25,8 @@ export class ProductFormComponent implements OnInit {
     price: [0],
     imgUrl: ['https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png'],
     brand: [''],
-    user: this.formBuilder.control<UserDTO | null>(null)
+    user: this.formBuilder.control<UserDTO | null>(null),
+    categories: this.formBuilder.control<CategoryDTO[]>([])
   });
 
   isNewModel = true;
@@ -32,6 +36,7 @@ export class ProductFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private userService: UserService,
+    private categoryService: CategoryService,
     private notificationService: ToastrService) { }
 
   ngOnInit(): void {
@@ -53,7 +58,15 @@ export class ProductFormComponent implements OnInit {
         console.error(err);
         this.notificationService.error('Can not load users.', 'Error');
       }
-    })
+    });
+
+    this.categoryService.getAllCategories().subscribe({
+      next: (categories) => this.categories = categories,
+      error: (err) => {
+        console.error(err);
+        this.notificationService.error('Can not load categories.', 'Error');
+      }
+    });
   }
 
   resetForm() {
@@ -64,7 +77,8 @@ export class ProductFormComponent implements OnInit {
       price: 0,
       imgUrl: 'https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png',
       brand: '',
-      user: null
+      user: null,
+      categories: []
     };
 
     this.productForm.setValue(defaultData);
@@ -108,5 +122,9 @@ export class ProductFormComponent implements OnInit {
 
   compareUsers(user1: UserDTO, user2: UserDTO): boolean {
     return user1 && user2 && user1.id === user2.id;
+  }
+
+  compareCategories(cat1: UserDTO, cat2: UserDTO): boolean {
+    return cat1 && cat2 && cat1.id === cat2.id;
   }
 }

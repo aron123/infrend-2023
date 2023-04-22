@@ -1,4 +1,5 @@
 import express from 'express';
+import { CategoryController } from './controller/category.controller';
 import { ProductController } from './controller/product.controller';
 import { UserController } from './controller/user.controller';
 
@@ -16,6 +17,10 @@ export function getRouter() {
     const userController = new UserController();
 
     router.get('/users', userController.getAll);
+
+    const categoryController = new CategoryController();
+
+    router.get('/categories', categoryController.getAll);
 
     return router;
 }

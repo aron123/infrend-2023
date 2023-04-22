@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductDTO } from 'webshop-models';
+import { Category } from './Category';
 import { User } from './User';
 
 @Entity()
@@ -24,4 +25,9 @@ export class Product implements ProductDTO {
 
     @ManyToOne(() => User, (user) => user.products, { eager: true })
     user: User;
+
+    @ManyToMany(() => Category, { eager: true })
+    @JoinTable()
+    categories: Category[];
+
 }

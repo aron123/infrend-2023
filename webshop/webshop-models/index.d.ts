@@ -6,6 +6,7 @@ export interface ProductDTO {
     imgUrl: string;
     brand: string;
     user: UserDTO | null;
+    categories: CategoryDTO[];
 }
 
 export interface UserDTO {
@@ -13,4 +14,9 @@ export interface UserDTO {
     firstName: string;
     lastName: string;
     age: number;
+}
+
+export interface CategoryDTO {
+    id: number;
+    title: string;
 }
