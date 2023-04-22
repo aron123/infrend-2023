@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     password: "root",
     database: "infrend2023_webshop",
     synchronize: true,
-    logging: false,
+    logging: true,
     entities: [Product],
     migrations: [],
     subscribers: [],

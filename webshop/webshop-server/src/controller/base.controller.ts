@@ -62,7 +62,7 @@ export abstract class Controller {
                 return this.handleError(res, null, 404, 'No entity found with this id.');
             }
 
-            await this.repository.delete(entity);
+            await this.repository.delete(entity.id);
             res.status(200).send();
         } catch (err) {
             this.handleError(res, err);

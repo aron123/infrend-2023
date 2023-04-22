@@ -6,18 +6,18 @@ export class Product implements ProductDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'text' })
     title: string;
 
-    @Column()
+    @Column({ type: 'text', nullable: true })
     description: string;
 
-    @Column()
+    @Column({ type: 'float' })
     price: number;
 
     @Column()
     imgUrl: string;
     
-    @Column()
+    @Column({ nullable: true })
     brand: string;
 }

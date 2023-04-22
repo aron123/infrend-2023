@@ -1,1 +1,17 @@
-<p>product-list works!</p>
+<div class="row">
+    <div class="col-md-6 mb-5" *ngFor="let product of products">
+        <h5>{{ product.title }} <span class="badge bg-success">{{ product.price }} $</span></h5>
+        <div class="controls text-end">
+            <button class="btn btn-sm btn-outline-primary me-1" (click)="editProduct(product)">Szerkesztés</button>
+            <button class="btn btn-sm btn-outline-danger me-1" (click)="deleteProduct(product)">Törlés</button>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <img [src]="product.imgUrl" class="product-img">
+            </div>
+            <div class="col-md-9">
+                {{ product.description | slice:0:240 }}
+            </div>
+        </div>
+    </div>
+</div>
