@@ -1,5 +1,6 @@
 # Informatikai rendszerek építése (2022/23. II. félév)
 
+- [**Beadandó információk**](assignment.md)
 - [Tanszéki weboldal](https://oktatas.iit.uni-miskolc.hu/doku.php?id=tanszek:oktatas:informatikai_rendszerek_epitese:informatikai_rendszerek_epitese)
 - [BProf gyakorlat](bprof.md)
 - [Szoftverkövetelmények](sw_requirements.md)
@@ -71,19 +72,28 @@ Egyéb anyagok:
 - [TypeORM Docs](https://typeorm.io/)
 
 ## 8. hét
-Kliens- és szerveroldal összekapcsolása. Példa projekt alapjainak elkészítése.
-
-- [Termékadatbázis](product-database.md)
+Monorepo létrehozása, szerveroldal fejlesztése.
 
 - [Monorepo létrehozása](monorepo.md)
-
-- [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
-- [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
+    - [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
+    - [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
 
 Egyéb anyagok:
 - [NPM Workspaces](https://docs.npmjs.com/cli/v9/using-npm/workspaces?v=true)
 - [Data Transfer Object tervezési minta](https://en.wikipedia.org/wiki/Data_transfer_object)
+
+## 9. hét
+Kliens- és szerveroldal összekapcsolása. Adatkezelés reaktív form-okkal.
+
+- [Termékadatbázis](product-database.md)
+- [Kódrészletek](webshop-code-snippets.md)
+- [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
+- [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
+
+Egyéb anyagok:
 - [Angular - Proxying to a backend server](https://angular.io/guide/build#proxying-to-a-backend-server)
+- [Reactive forms in Angular](https://angular.io/guide/reactive-forms)
+    - [Intro to Angular Reactive Forms](https://betterprogramming.pub/intro-to-angular-reactive-forms-fc5cd636ce1f)
 
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
