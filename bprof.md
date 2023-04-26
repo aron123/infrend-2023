@@ -36,7 +36,9 @@ Elkészítendő lapok:
 
 A 7. héten a GitHub API megismerése a cél: össze kell gyűjteni és ki kell próbálni azokat az API hívásokat, amik szükségesek az ismertetett alkalmazás megvalósításához. Egy olyan dokumentum összeállítása a cél, ami tartalmazza a szükséges adatlekérdező műveletek elérését, rövid leírását, és egy-egy screenshotot a Postman-ből, amiben sikeres API hívás látható.
 
-A 8. héten a 2 kereső felület megvalósítása a cél. A felhasználó kereső kerüljön a főoldalra, a repository kereső a `/search-repos` útvonalon legyen elérhető! 
+A 8. héten a 2 kereső felület megvalósítása a cél. A felhasználó kereső kerüljön a főoldalra, a repository kereső a `/search-repos` útvonalon legyen elérhető!
+
+A 9. héten a felhasználói- és repository adatlapot is el kell készíteni, valamint menüt kell létrehozni, amivel a felhasználó navigálhat a két kereső között.
 
 Referencia dokumentáció:
 - [Általános API-leírás](https://docs.github.com/en/rest/overview/resources-in-the-rest-api)
