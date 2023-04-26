@@ -47,35 +47,6 @@
 </details>
 
 <details>
-<summary>Product entitás</summary>
-
-```ts
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity()
-export class Product implements ProductDTO {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({ type: 'text' })
-    title: string;
-
-    @Column({ type: 'text', nullable: true })
-    description: string;
-
-    @Column({ type: 'float' })
-    price: number;
-
-    @Column()
-    imgUrl: string;
-    
-    @Column({ nullable: true })
-    brand: string;
-}
-```
-</details>
-
-<details>
 <summary>Általános kontroller</summary>
     
 ```ts
