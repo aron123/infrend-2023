@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ProductDTO } from 'webshop-models';
+import { ProductDTO } from '../../../models';
 
 @Entity()
 export class Product implements ProductDTO {
