@@ -79,19 +79,29 @@ Egyéb anyagok:
 - [Data Transfer Object tervezési minta](https://en.wikipedia.org/wiki/Data_transfer_object)
 
 ## 9. hét
-Kliens- és szerveroldal összekapcsolása. Adatkezelés reaktív form-okkal.
+Kliens- és szerveroldal összekapcsolása.
+
+- [Termékadatbázis](product-database.md)
+
+Projekt:
+- [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
+- [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
+
+Egyéb anyagok:
+- [Angular - Proxying to a backend server](https://angular.io/guide/build#proxying-to-a-backend-server)
+
+## 10. hét
+Adatkezelés reaktív form-okkal.
 
 - [Termékadatbázis](product-database.md)
 - [Kódrészletek](webshop-code-snippets.md)
 
 Projekt:
-- ~~[Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)~~ (átalakításra fog kerülni)
-- [Kezdő projekt letöltése (csütörtök 10:00)](https://github.com/aron123/infrend-2023/raw/master/assets/webshop-cs10_v2.zip)
+- [Átalakított projekt letöltése (kedd 16:00)](https://github.com/aron123/infrend-2023/raw/master/assets/webshop-k16_v2.zip)
 
 Egyéb anyagok:
-- [Angular - Proxying to a backend server](https://angular.io/guide/build#proxying-to-a-backend-server)
 - [Reactive forms in Angular](https://angular.io/guide/reactive-forms)
-    - [Intro to Angular Reactive Forms](https://betterprogramming.pub/intro-to-angular-reactive-forms-fc5cd636ce1f)
+- [Intro to Angular Reactive Forms](https://betterprogramming.pub/intro-to-angular-reactive-forms-fc5cd636ce1f)
 
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
