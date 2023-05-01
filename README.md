@@ -74,10 +74,6 @@ Egyéb anyagok:
 ## 8. hét
 Monorepo létrehozása, szerveroldal fejlesztése.
 
-- [Monorepo létrehozása](monorepo.md)
-    - [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
-    - [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
-
 Egyéb anyagok:
 - [NPM Workspaces](https://docs.npmjs.com/cli/v9/using-npm/workspaces?v=true)
 - [Data Transfer Object tervezési minta](https://en.wikipedia.org/wiki/Data_transfer_object)
@@ -87,8 +83,10 @@ Kliens- és szerveroldal összekapcsolása. Adatkezelés reaktív form-okkal.
 
 - [Termékadatbázis](product-database.md)
 - [Kódrészletek](webshop-code-snippets.md)
-- [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
-- [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
+
+Projekt:
+- ~~[Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)~~ (átalakításra fog kerülni)
+- [Kezdő projekt letöltése (csütörtök 10:00)](https://github.com/aron123/infrend-2023/raw/master/assets/webshop-cs10_v2.zip)
 
 Egyéb anyagok:
 - [Angular - Proxying to a backend server](https://angular.io/guide/build#proxying-to-a-backend-server)
