@@ -7,10 +7,10 @@ export class Product implements ProductDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: true, type: 'text' })
     title: string;
 
-    @Column()
+    @Column({ nullable: true, type: 'text' })
     description: string;
 
     @Column()
@@ -19,6 +19,6 @@ export class Product implements ProductDTO {
     @Column()
     imgUrl: string;
 
-    @Column()
+    @Column({ nullable: true })
     brand: string;
 }
