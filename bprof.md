@@ -47,3 +47,23 @@ Referencia dokumentáció:
 - [Search users](https://docs.github.com/en/rest/reference/search#search-users)
 - [Get a user](https://docs.github.com/en/rest/reference/users#get-a-user)
 - [List repositories for a user](https://docs.github.com/en/rest/reference/repos#list-repositories-for-a-user)
+
+# 10. hét
+Rektori szünet.
+
+# 11-12. hét
+TODO alkalmazás készítése, TypeORM helyett [Sequelize](https://sequelize.org/docs/v6/) segítségével.
+
+- minden TODO rendelkezik címmel, leírással, határidővel, teljesítettségi állapottal (boolean),
+- el kell készíteni az alapvető CRUD műveleteket (létrehozás, összes rekord olvasása, egy rekord olvasása, módosítás, törlés),
+- továbbá le lehet kérdezni azokat a TODO-kat, amik határideje lejárt, de még nem lettek teljesítve,
+
+A 11. hét feladata a szerveroldal elkészítése (Express és Sequelize segítségével), valamint tesztelése Postman-nel.
+
+A 12. hét feladata a kliensoldal elkészítése Angular-ban.
+
+Segédanyagok:
+- [Egy egyszerűbb TODO alkalmazás](https://microsoftedge.github.io/Demos/demo-to-do/)
+- [Build Type Safe API with Sequelize TypeScript and Express.js](https://dev.to/franciscomendes10866/how-to-use-sequelize-orm-with-typescript-3no)
+- [Developing REST Api using sequelize typescript, node, express and mysql](https://crew-code.com/node-express-typescript-sequelize-mysql-rest-api/)
+- [Build a bullet proof REST API with Typescript, Express.js and Sequelize with Sqlite3](https://www.youtube.com/watch?v=yFgrSJGNj0E)
