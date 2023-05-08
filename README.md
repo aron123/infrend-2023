@@ -97,11 +97,23 @@ Adatkezelés reaktív form-okkal.
 - [Kódrészletek](webshop-code-snippets.md)
 
 Projekt:
-- [Átalakított projekt letöltése (kedd 16:00)](https://github.com/aron123/infrend-2023/raw/master/assets/webshop-k16_v2.zip)
+- [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
+- [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
 
 Egyéb anyagok:
 - [Reactive forms in Angular](https://angular.io/guide/reactive-forms)
 - [Intro to Angular Reactive Forms](https://betterprogramming.pub/intro-to-angular-reactive-forms-fc5cd636ce1f)
+
+## 11. hét
+1:N, N:M kapcsolatok implementálása kliens- és szerveroldalon.
+
+Projekt:
+- [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
+- [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
+
+Egyéb anyagok:
+- [TypeORM - Many-to-one / one-to-many relations](https://typeorm.io/many-to-one-one-to-many-relations)
+- [TypeORM - Many-to-many relations](https://typeorm.io/many-to-many-relations)
 
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>
