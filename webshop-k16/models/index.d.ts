@@ -1,3 +1,9 @@
+export interface UserDTO {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
+
 export interface ProductDTO {
     id: number;
     title: string;
@@ -5,4 +11,5 @@ export interface ProductDTO {
     price: number;
     imgUrl: string;
     brand: string;
+    uploader: null | UserDTO;
 }

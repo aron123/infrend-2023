@@ -37,6 +37,16 @@
                 <input type="text" class="form-control" id="brand" name="brand"
                     formControlName="brand">
             </div>
+            <div class="mb-3">
+                <label for="uploader" class="form-label">Feltöltő:</label>
+                <select name="uploader" id="uploader" class="form-select"
+                    formControlName="uploader" [compareWith]="compareUsers">
+                    <option [ngValue]="null">Nincs felhasználó</option>
+                    <option *ngFor="let user of users" [ngValue]="{ id: user.id }">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </option>
+                </select>
+            </div>
             <div class="text-end">
                 <button class="btn btn-outline-primary"
                     (click)="saveProduct()">Mentés</button>
