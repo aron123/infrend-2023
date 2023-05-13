@@ -271,13 +271,176 @@ Váltsunk át a Postman-ben az "Authorization" fülre, a "Type" legördülő men
 
 Most küldjük be újra a törlésre vonatkozó kérést! Ha rendszerünk megfelelően működik, 200-as státuszkódot kell válaszként visszakapnunk. Ez azt jelenti, hogy az 1-es termék törlésre került.
 
+Szerveroldalunk védelmével el is készültünk. Nézzük a kliensoldalt!
+
 ## Kliensoldal védelme
 
-### Felhasználói regisztráció
+A kliensoldal esetében a védelem azt fogja jelenti, hogy a szerverről kapott JWT tokent eltároljuk, és azt minden kérésbe beletesszük.
 
-### Token kezelés (tárolás, használat, kilépés)
+Ezen túlmenően elsősorban annyi a dolgunk, hogy a felhasználó által nem elérhető műveletekhez tartozó grafikus elemeket elrejtsük, amennyiben a felhasználónk nem jelentkezett be.
+
+### Regisztrációs felület
+A regisztrációs felület létrehozásában nincs újdonság, egy form-ot kell létrehoznunk, a megadott adatokat pedig a `/api/users` útvonalra POST-olnunk.
+
+A termék űrlap (`ProductFormComponent`) alapján könnyedén elkészíthető ez a komponens.
+
+### Token kezelés
+
+Hozzunk létre egy service-t, ami a felhasználó JWT tokenjét fogja tárolni, kezelni:
+
+```
+cd src/app/services
+ng g s auth
+cd ../../..
+```
+
+Implementáljuk a service-t a következő módon:
+
+```ts
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  TOKEN_KEY = 'accessToken';
+
+  constructor() { }
+
+  setToken(token: string) {
+    localStorage.setItem(this.TOKEN_KEY, token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  removeToken() {
+    localStorage.removeItem(this.TOKEN_KEY);
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+}
+```
+
+A tokent [LocalStorage-ban](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) tároljuk, mely az alkalmazásunkhoz tartozó kulcs-érték tároló. Használatára korábban, a ChatGPT projektünknél már láthattunk példát.
+
+### Bejelentkezés
+Bejelentkezés oldalunk létrehozása előtt egészítsük ki típusdefinícióinkat a `models/index.d.ts` fájlban a következőkkel:
+
+```ts
+export interface LoginDTO {
+    email: string;
+    password: string;
+}
+
+export interface AccessTokenDTO {
+    accessToken: string;
+}
+```
+
+Majd egészítsük ki a `UserService`-t a bejelentkezéshez szükséges kérést elküldő metódussal:
+
+```ts
+login(data: LoginDTO) {
+    return this.http.post<AccessTokenDTO>('/api/users/login', data);
+}
+```
+
+Készítsük el a regisztrációs felületet. Ehhez generáljunk egy komponenst `LoginComponent` néven:
+
+```
+ng g c login
+```
+
+Az `AppRoutingModule`-ban rendeljünk hozzá egy útvonalat a komponensünkhöz:
+
+```ts
+{
+    path: 'login',
+    component: LoginComponent
+},
+```
+
+Hozzuk létre a komponens kinézetét:
+
+```html
+<div class="row justify-content-md-center">
+    <div class="col-md-6">
+        <form [formGroup]="loginForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail cím</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Jelszó</label>
+                <input type="password" class="form-control" id="password" formControlName="password">
+            </div>
+            
+            <div class="text-center">
+                <button class="btn btn-outline-primary" (click)="login()">Belépés</button>
+            </div>
+        </form>
+    </div>
+</div>
+```
+
+Majd implementáljuk a hozzá tartozó osztályt is:
+
+```ts
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginDTO } from 'models';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+  loginForm = this.formBuilder.group({
+    email: this.formBuilder.control(''),
+    password: this.formBuilder.control('')
+  });
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router,
+    private toastrService: ToastrService) { }
+
+  login() {
+    const loginData = this.loginForm.value as LoginDTO;
+
+    this.userService.login(loginData).subscribe({
+      next: (response) => {
+        this.authService.setToken(response.accessToken);
+        this.router.navigateByUrl('/');
+      },
+      error: (err) => {
+        this.toastrService.error(err.error.error, 'Error');
+      }
+    });
+  }
+}
+```
+
+Sikeres belépés esetén a szerver által küldött JWT tokent elmentjük, majd a főoldalra navigálunk. Ha a szerverről hibaüzenet érkezik vissza, azt értesítésként megjelenítjük a felhasználó számára.
 
 ### Útvonalak / UI védelme
+- http intercept
+- router
+- ngIf
+
+### Kilépés
 
 ## Továbbfejlesztési lehetőségek
 
