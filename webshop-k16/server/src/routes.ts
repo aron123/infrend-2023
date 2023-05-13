@@ -1,4 +1,5 @@
 import express from 'express';
+import { CategoryController } from './controller/category.controller';
 import { ProductController } from './controller/product.controller';
 import { UserController } from './controller/user.controller';
 
@@ -20,6 +21,14 @@ export function getRoutes() {
     router.post('/users', userController.create);
     router.put('/users', userController.update);
     router.delete('/users/:id', userController.delete);
+
+    const categoryController = new CategoryController();
+
+    router.get('/categories', categoryController.getAll);
+    router.get('/categories/:id', categoryController.getOne);
+    router.post('/categories', categoryController.create);
+    router.put('/categories', categoryController.update);
+    router.delete('/categories/:id', categoryController.delete);
 
     return router;
 }

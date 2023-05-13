@@ -4,7 +4,7 @@
             {{ product.title }}
             <span class="badge text-bg-success">{{ product.price }} $</span>
         </h5>
-        <div class="row">
+        <div class="row pb-1">
             <div class="col-md-2">
                 <button class="btn btn-sm btn-outline-primary"
                     (click)="navigateToProductForm(product.id)">Szerkesztés</button>
@@ -21,6 +21,9 @@
             <div class="col-md-9">
                 {{ product.description | slice:0:240 }}
             </div>
+        </div>
+        <div class="row">
+            Kategóriák:
         </div>
     </div>
 </div>

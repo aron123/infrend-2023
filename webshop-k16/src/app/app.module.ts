@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { CategoryManagementComponent } from './category-management/category-management.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    CategoryManagementComponent
   ],
   imports: [
     BrowserModule,

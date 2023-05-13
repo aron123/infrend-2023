@@ -4,6 +4,11 @@ export interface UserDTO {
     lastName: string;
 }
 
+export interface CategoryDTO {
+    id: number;
+    title: string;
+}
+
 export interface ProductDTO {
     id: number;
     title: string;
@@ -12,4 +17,5 @@ export interface ProductDTO {
     imgUrl: string;
     brand: string;
     uploader: null | UserDTO;
+    categories: CategoryDTO[];
 }

@@ -40,10 +40,19 @@
             <div class="mb-3">
                 <label for="uploader" class="form-label">Feltöltő:</label>
                 <select name="uploader" id="uploader" class="form-select"
-                    formControlName="uploader" [compareWith]="compareUsers">
+                    formControlName="uploader" [compareWith]="compareObjects">
                     <option [ngValue]="null">Nincs felhasználó</option>
                     <option *ngFor="let user of users" [ngValue]="{ id: user.id }">
                         {{ user.firstName }} {{ user.lastName }}
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="categories" class="form-label">Kategóriák:</label>
+                <select name="categories" id="categories" class="form-select" multiple
+                    formControlName="categories" [compareWith]="compareObjects">
+                    <option *ngFor="let category of categories" [ngValue]="{ id: category.id }">
+                        {{ category.title }}
                     </option>
                 </select>
             </div>
