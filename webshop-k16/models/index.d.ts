@@ -19,3 +19,12 @@ export interface ProductDTO {
     uploader: null | UserDTO;
     categories: CategoryDTO[];
 }
+
+export interface LoginDTO {
+    email: string;
+    password: string;
+}
+
+export interface AccessTokenDTO {
+    accessToken: string;
+}
