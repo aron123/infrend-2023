@@ -20,10 +20,8 @@
             </div>
             <div class="col-md-9">
                 {{ product.description | slice:0:240 }}
+                <p>Kategóriák: {{ getCategoryList(product.categories) }}</p>
             </div>
-        </div>
-        <div class="row">
-            Kategóriák:
         </div>
     </div>
 </div>

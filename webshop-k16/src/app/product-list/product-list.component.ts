@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductDTO } from 'models';
+import { CategoryDTO, ProductDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
 
@@ -43,5 +43,9 @@ export class ProductListComponent implements OnInit {
         this.toastrService.error('Hiba a termék törlésekor.', 'Hiba');
       }
     })
+  }
+
+  getCategoryList(categories: CategoryDTO[]): string[] {
+    return categories.map(cat => cat.title);
   }
 }
