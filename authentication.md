@@ -3,7 +3,7 @@ Elkészült webshopunkat felhasználókezeléssel szeretnénk ellátni.
 
 Célunk a legalapvetőbb autentikációs folyamatok implementálása, melynek során olyan technológiákat ismerünk meg, amiket valós rendszerekben is alkalmaznak.
 
-Nem törekszünk azonban a teljességre, a tutorial végére elkészülő alkalmazásunk csak további védelmi funkciók implementálása után állna készen arra, hogy élesben is üzemeljen. Ezek a „Továbbfejlesztési lehetőségek” fejezetben vannak felsorolva.
+Nem törekszünk azonban a teljességre, a tutorial végére elkészülő alkalmazásunk csak további védelmi funkciók implementálása után állna készen arra, hogy élesben is biztonságosan üzemeljen. Ezek a „Továbbfejlesztési lehetőségek” fejezetben vannak felsorolva.
 
 ## Kezdő projekt
 
@@ -209,9 +209,9 @@ export const handleAuthorizationError = (err, req, res, next) => {
 };
 ```
 
-A `checkUser` függvény ellenőrzi a JWT tokent, melyet alapértelmezetten a kérés `Authorization` nevű fejlécéből olvas ki.
+A `checkUser` függvény ellenőrzi a JWT tokent, melyet alapértelmezetten a kérés `Authorization` nevű fejlécéből olvas ki. A fejlécnek a következő formátumot kell követnie: `Authorization: Bearer <jwt_token>`.
 
-A `handleAuthorizationError` függvény pedig kezeli azt az esetet, amikor a token valamilyen okból nem érvényes (vagy nem is szerepel a kérésben).
+A `handleAuthorizationError` függvény kezeli azt, ha a token valamilyen okból nem érvényes (pl. érvénytelen az aláírása vagy lejárt), vagy nem is szerepel a kérésben.
 
 A `routes.ts` fájlban szereplő routerben alkalmazzuk a checkUser függvényt minden írási műveletre (kivéve a regisztrációra, amit el kell érnie a vendégeknek is):
 
@@ -304,7 +304,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  TOKEN_KEY = 'accessToken';
+  private TOKEN_KEY = 'accessToken';
 
   constructor() { }
 
@@ -435,17 +435,318 @@ export class LoginComponent {
 
 Sikeres belépés esetén a szerver által küldött JWT tokent elmentjük, majd a főoldalra navigálunk. Ha a szerverről hibaüzenet érkezik vissza, azt értesítésként megjelenítjük a felhasználó számára.
 
-### Útvonalak / UI védelme
-- http intercept
-- router
-- ngIf
+Ellenőrizzük, hogy be tudunk-e lépni a megfelelő adatok megadásakor!
+
+Ezt követően hozzuk létre a "Belépés" menüt az `AppComponent` navigációs sávján, a többi menüpont után:
+
+```html
+<li class="nav-item">
+    <a class="nav-link" routerLink="/login">Belépés</a>
+</li>
+```
+
+### HTTP kérések kezelése
+
+Az elmentett JWT tokent mostantól el kell helyeznünk minden, saját szerverünk felé kimenő kérésben. 
+
+Alkalmazásunk külső API-t (pl. Google Maps) nem használ, így gyakorlatilag minden kimenő kérésben szerepeltethetjük a tokent. Ha mégis használnánk ilyen külső API-t, oda kellene figyelnünk arra, hogy csak a saját szerverünk felé menő kéréseknél történjen meg a token használata.
+
+A szerver a következő formátumban várja a tokent: `Authorization: Bearer eyJhbGciOiJIUz...`
+
+Ahhoz, hogy ezt minden kérésben szerepeltethessük, egy [HttpInterceptor-t](https://angular.io/guide/http-intercept-requests-and-responses) fogunk használni, mely egy interfész, ami az `intercept()` metódust deklarálja. Ez a metódus minden kimenő kérés esetén le fog futni, segítségével többek között változtatni lehet a kérés tartalmát.
+
+Hozzunk létre az `AccessTokenInterceptor`-t a következő parancsokkal:
+
+```
+cd src/app/services
+ng g interceptor access-token
+```
+
+A létrejött osztály implementációja a következő lesz:
+
+```ts
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class AccessTokenInterceptor implements HttpInterceptor {
+
+  constructor(private authService: AuthService) { }
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const accessToken = this.authService.getToken();
+
+    const transformedRequest = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    return next.handle(transformedRequest);
+  }
+}
+```
+
+Ahogy a kódban látható, a `request` [immutable objektum](https://en.wikipedia.org/wiki/Immutable_object), így közvetlen módosítása nem lehetséges.
+
+Csak úgy változtathatjuk meg a kérést, ha új `HttpRequest` példányt hozunk létre. Ezt segíti a `clone` metódus, ami az eredeti kérés tartalmán az átadott módosításokat (`setHeaders`) végrehajtva új kérés objektumot hoz létre. 
+
+Ezt követően a transzformált kérést tovább adjuk a következő feldolgozó függvénynek (jelen esetben ez a `HttpClient` megfelelő metódusát fogja jelenteni, amely elküldi a kérést a szervernek).
+
+Ahhoz, hogy az Angular ténylegesen használja is a létrehozott interceptor-t, provider-ként regisztrálnunk kell azt az `AppModule`-ban:
+
+```ts
+@NgModule({
+  // ...
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenInterceptor,
+      multi: true
+    }
+  ],
+  // ...
+})
+export class AppModule { }
+```
+
+A `multi` beállítás azt jelzi, hogy több interceptor-unk is lehet. Ez később még lényeges lesz, hiszen a szerverről visszaérkező választ is figyelni fogjuk.
+
+Mivel korábban már bejelentkeztünk, könnyen ellenőrizhetjük, hogy token-ünk ténylegesen szerepel-e a kimenő kérésekben. Nyissuk meg a Konzolt (F12), majd lépjünk át a Network fülre. Ezt követően nyissuk meg pl. a Kategóriák menüpontot!
+
+A Network fülön megjelenő kérés fejlécei között meg kell találnunk az `Authorization`-t:
+
+![Authorization header in Web Console](assets/access-token.png)
+
+### HTTP válaszok kezelése
+
+A HTTP válaszok esetében érdemes figyelni azt, hogy `401 Unauthorized` státuszkód érkezik-e vissza a szerverünkről. Amennyiben igen, az azt jelenti, hogy a kliens nem küldött be JWT tokent egy írási művelethez, vagy a token nem érvényes, esetleg már lejárt. Ezekben az esetekben célszerű a LocalStorage-ban tárolt tokent törölni, és a belépés oldalra irányítani a felhasználót.
+
+Ehhez hozzunk létre az `UnauthorizedInterceptor`-t:
+
+```
+cd src/app/services
+ng g interceptor unauthorized
+```
+
+Implementációja a következő lesz:
+
+```ts
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+
+@Injectable()
+export class UnauthorizedInterceptor implements HttpInterceptor {
+
+  constructor(
+    private authService: AuthService,
+    private router: Router) { }
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    return next.handle(request).pipe(
+      catchError((err) => {
+        if (err instanceof HttpErrorResponse && err.status === 401) {
+          this.authService.removeToken();
+          this.router.navigateByUrl('/login');
+        }
+
+        throw err;
+      })
+    );
+  }
+}
+```
+
+Az interceptor a kérést nem kezeli, azt átadja a következő feldolgozó függvény számára (`next.handle(request)`). A válaszhoz viszont saját kezelőfüggvényt rendel: amennyiben `HttpErrorResponse` keletkezik (azaz valamilyen hibára utaló HTTP státuszkód érkezik vissza a válaszban), és ez a hibakód 401, akkor a tárolt token törlésre kerül és a felhasználó átirányítódik a bejelentkezés oldalra.
+
+Regisztráljuk az interceptort az `AppModule`-ban a korábbiakhoz hasonlóan:
+
+```ts
+// ...
+providers: [
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AccessTokenInterceptor,
+        multi: true
+    },
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: UnauthorizedInterceptor,
+        multi: true
+    }
+],
+// ...
+```
+
+Ezt követően próbáljuk ki, hogy interceptorunk működik-e: a böngésző konzoljában futtassuk a `localStorage.clear()` parancsot (ezzel a tárolt JWT token törlődik, azaz az írási műveletekre már nem rendelkezünk jogosultsággal). 
+
+Próbáljunk meg a terméklistából törölni egy terméket! Azzal kell szembesülnünk, hogy ez nem sikerült, és a bejelentkezési oldalon találtuk magunkat.
+
+### Útvonalak védelme
+
+Alkalmazásunk útvonalainak védelmére korábban, a ChatGPT projektben láthattunk már példát: azon felhasználókat, akik nem adták meg a nevüket, nem engedtük be a chat felületre.
+
+Alkalmazzuk ezt a védelmet itt is, azokra a komponensekre, amik kizárólag írási műveleteket biztosítanak! Ehhez hozzunk létre először egy guard függvényt az `AuthService`-ben!
+
+Az átirányítás miatt az Angular Router-re szükségünk van:
+
+```ts
+import { Router } from '@angular/router';
+// ...
+
+export class AuthService {
+  // ...
+  constructor(private router: Router) { }
+//...
+```
+
+Ezen kívül a metódust kell implementálnunk, ami átirányítja a felhasználót a belépés oldalra, amennyiben nem kívánt útvonalra téved:
+
+```ts
+preventGuestAccess(): boolean {
+    const isLoggedIn = this.isLoggedIn();
+
+    if (!isLoggedIn) {
+        this.router.navigateByUrl('/login');
+    }
+
+    return isLoggedIn;
+}
+```
+
+Az `AppRoutingModule`-ban alkalmazzuk ezt a függvényt azokra az útvonalakra, amik kizárólag írási műveleteket biztosítanak:
+
+```ts
+// ...
+{
+    path: 'product-form',
+    component: ProductFormComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+},
+{
+    path: 'product-form/:id',
+    component: ProductFormComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+},
+// ...
+```
+
+Ha ezt követően töröljük a `localStorage`-ból az elmentett tokent (`localStorage.clear()`), majd megpróbálunk belépni az "Új termék" menübe, a belépés oldalon kell találnunk magunkat.
 
 ### Kilépés
 
+Biztosítsuk a felhasználók számára a kilépés lehetőségét is! Ez mindössze annyiból áll, hogy elmentett token-jüket töröljük. Ezt követően a módosítási műveletek eléréséhez újra be kell majd jelentkezniük.
+
+Ehhez implementáljuk a kilépés funkciót az `AppComponent`-ben:
+
+```ts
+// ...
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './services/auth.service';
+//...
+
+export class AppComponent {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastrService: ToastrService) { }
+
+  logout() {
+    this.authService.removeToken();
+    this.router.navigateByUrl('/');
+    this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
+  }
+}
+```
+
+Majd a hozzá tartozó template-ben hozzunk létre egy Kilépés menüpontot:
+
+```html
+<li class="nav-item">
+    <a class="nav-link" href="#" (click)="logout()">Kilépés</a>
+</li>
+```
+
+### UI elemek elrejtése
+
+Ezt követően nincs más dolgunk, mint azon UI elemek elrejtése a vendégek / bejelentkezett felhasználók számára, melyek részükre nem elérhető funkciókhoz tartoznak.
+
+A vendégek esetében ilyen UI elemek például a módosításra szolgáló menüpontok, valamint a különböző "Szerkesztés" és "Törlés" gombok, valamint a "Kilépés" menüpont.
+
+A bejelentkezett felhasználók számára ilyen UI elem a "Belépés" menü.
+
+Kezdjünk a menüpontokkal! Az `AppComponent`-ben az `authService` adattagot tegyük publikussá, mert a komponens template-jében használni fogjuk:
+
+```ts
+constructor(
+    private router: Router,
+    public authService: AuthService,
+    private toastrService: ToastrService) { }
+```
+
+Ezt követően módosítsuk a menüpontok láthatóságát:
+
+```html
+<!-- ... -->
+<ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" routerLink="/">Termékek</a>
+    </li>
+    <li class="nav-item" *ngIf="authService.isLoggedIn()">
+        <a class="nav-link" routerLink="/product-form">Új termék</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/categories">Kategóriák</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/login" *ngIf="!authService.isLoggedIn()">Belépés</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" (click)="logout()" *ngIf="authService.isLoggedIn()">Kilépés</a>
+    </li>
+</ul>
+<!-- ... -->
+```
+
+Ezt követően haladjunk oldalról oldalra! Kezdjünk a `ProductListComponent`-tel! Itt a Szerkesztés / Törlés gombokat kell elrejteni a vendégek számára.
+
+Az AuthService-t adjuk hozzá a konstruktorhoz:
+
+```ts
+public authService: AuthService,
+```
+
+A template-ben pedig vegyük is használatba:
+
+```html
+<!-- ... -->
+<div class="row pb-1">
+    <div class="col-md-2" *ngIf="authService.isLoggedIn()">
+        <button class="btn btn-sm btn-outline-primary" (click)="navigateToProductForm(product.id)">Szerkesztés</button>
+    </div>
+    <div class="col-md-2" *ngIf="authService.isLoggedIn()">
+        <button class="btn btn-sm btn-outline-danger" (click)="deleteProduct(product)">Törlés</button>
+    </div>
+</div>
+<!-- ... -->
+```
+
+Az "Új termék" menüt nem érik el a vendégek, így ezzel nincs további teendőnk.
+
+A fentiek alapján módosítsuk viszont a `CategoryManagementComponent`-et. Itt az a cél, hogy a vendégek csak a kategória listát lássák, a Törlés gombot, és az űrlapot ne!
+
+Ezzel elkészült alkalmazásunk alapvető autentikációja!
+
 ## Továbbfejlesztési lehetőségek
 
-- ne lehessen más user nevében terméket létrehozni
-- csak saját terméket lehessen módosítani
-- role-ok
-- 401 esetén kiléptetés
-- belépett user ne érje el a regisztrációs oldalt
+Az alábbiak szerint természetesen lehetőség van még a védelem további fejlesztésére:
+
+- A felhasználók számára csak saját termékeik szerkesztését / törlését engedélyezzük!
+- Új termék létrehozásakor az automatikusan a belépett felhasználóhoz rendelődjön!
+- Határozzunk meg szerepköröket: `user`, `admin`. A felhasználó szerepkörét kódoljuk is bele a JWT tokenbe a bejelentkezéskor! Az adminok legyenek képesek más felhasználók nevében terméket létrehozni, illetve legyen joguk bármely termék szerkesztésére, törlésére!
