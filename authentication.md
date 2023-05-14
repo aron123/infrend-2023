@@ -189,7 +189,7 @@ A `UserController`-ben importáljuk a csomagot:
 import jwt from 'jsonwebtoken';
 ```
 
-Majd a login metódus végét cseréljük ki a következőre:
+Majd a `login` metódus végét cseréljük ki a következőre:
 
 ```ts
 const token = jwt.sign({ id: user.id }, 'mySecretKey', { expiresIn: '2w' });
@@ -198,7 +198,9 @@ res.json({ accessToken: token });
 
 A fenti 2 sorban egy JWT tokent hozunk létre, melynek payload részében a felhasználó azonosítója szerepel. A token aláírását a `mySecretKey` titkos kulccsal végezzük el (később, a token ellenőrzésekor ezt még használnunk kell!). A token lejáratát 2 hétre állítottuk, ezt követően a felhasználónak újra be kell majd lépnie.
 
-Teszteljük a belépést Postman-ben újra! A visszakapott JWT token tartalmát ellenőrizhetjük is, a https://jwt.io/ webhelyen. Mentsük is el a kapott tokent, a fejlesztés során ezt még használni fogjuk!
+Teszteljük a belépést Postman-ben újra! A visszakapott JWT token tartalmát ellenőrizhetjük is, a https://jwt.io/ webhelyen.
+
+**Mentsük is el a kapott tokent, a fejlesztés során ezt még használni fogjuk!**
 
 ### HTTP végpontok védelme
 
@@ -233,7 +235,7 @@ A `checkUser` függvény ellenőrzi a JWT tokent, melyet alapértelmezetten a k�
 
 A `handleAuthorizationError` függvény kezeli azt, ha a token valamilyen okból nem érvényes (pl. érvénytelen az aláírása vagy lejárt), vagy nem is szerepel a kérésben.
 
-A `routes.ts` fájlban szereplő routerben alkalmazzuk a checkUser függvényt minden írási műveletre (kivéve a regisztrációra, amit el kell érnie a vendégeknek is):
+A `routes.ts` fájlban szereplő routerben alkalmazzuk a `checkUser` függvényt minden írási műveletre (kivéve a regisztrációra, amit el kell érnie a vendégeknek is):
 
 ```ts
 export function getRoutes() {
