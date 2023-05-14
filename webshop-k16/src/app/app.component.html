@@ -9,14 +9,17 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/">Termékek</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link" routerLink="/product-form">Új termék</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/categories">Kategóriák</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">Belépés</a>
+          <a class="nav-link" routerLink="/login" *ngIf="!authService.isLoggedIn()">Belépés</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" (click)="logout()" *ngIf="authService.isLoggedIn()">Kilépés</a>
         </li>
       </ul>
     </div>

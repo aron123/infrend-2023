@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoryDTO, ProductDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private toastrService: ToastrService,
+    public authService: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {

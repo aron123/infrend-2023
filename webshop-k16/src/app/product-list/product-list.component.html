@@ -5,13 +5,11 @@
             <span class="badge text-bg-success">{{ product.price }} $</span>
         </h5>
         <div class="row pb-1">
-            <div class="col-md-2">
-                <button class="btn btn-sm btn-outline-primary"
-                    (click)="navigateToProductForm(product.id)">Szerkesztés</button>
+            <div class="col-md-2" *ngIf="authService.isLoggedIn()">
+                <button class="btn btn-sm btn-outline-primary" (click)="navigateToProductForm(product.id)">Szerkesztés</button>
             </div>
-            <div class="col-md-2">
-                <button class="btn btn-sm btn-outline-danger"
-                    (click)="deleteProduct(product)">Törlés</button>
+            <div class="col-md-2" *ngIf="authService.isLoggedIn()">
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteProduct(product)">Törlés</button>
             </div>
         </div>
         <div class="row">
