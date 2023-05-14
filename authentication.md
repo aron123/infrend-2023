@@ -5,6 +5,26 @@ Célunk a legalapvetőbb autentikációs folyamatok implementálása, melynek so
 
 Nem törekszünk azonban a teljességre, a tutorial végére elkészülő alkalmazásunk csak további védelmi funkciók implementálása után állna készen arra, hogy élesben is biztonságosan üzemeljen. Ezek a „Továbbfejlesztési lehetőségek” fejezetben vannak felsorolva.
 
+## Tartalom
+
+- [Kezdő projekt](#kezd--projekt)
+- [Cél](#c-l)
+- [JWT](#jwt)
+- [Szerveroldal védelme](#szerveroldal-v-delme)
+    * [Felhasználói regisztráció](#felhaszn-l-i-regisztr-ci-)
+    * [Bejelentkezés](#bejelentkez-s)
+    * [HTTP végpontok védelme](#http-v-gpontok-v-delme)
+- [Kliensoldal védelme](#kliensoldal-v-delme)
+    * [Regisztrációs felület](#regisztr-ci-s-fel-let)
+    * [Token kezelés](#token-kezel-s)
+    * [Bejelentkezés](#bejelentkez-s-1)
+    * [HTTP kérések kezelése](#http-k-r-sek-kezel-se)
+    * [HTTP válaszok kezelése](#http-v-laszok-kezel-se)
+    * [Útvonalak védelme](#-tvonalak-v-delme)
+    * [Kilépés](#kil-p-s)
+    * [UI elemek elrejtése](#ui-elemek-elrejt-se)
+- [Továbbfejlesztési lehetőségek](#tov-bbfejleszt-si-lehet-s-gek)
+
 ## Kezdő projekt
 
 Kezdésképpen a webshop projektet [töltsük le innen](assets/webshop-auth.zip), hogy közös kódbázisból induljunk!
