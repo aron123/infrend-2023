@@ -25,7 +25,7 @@ Nem célunk ugyanakkor ezen kívül más védelmi mechanizmusok alkalmazása (pl
 
 Autentikációnk alapjául ún. "JSON Web Token-eket" (JWT) fogunk használni. A tutorial további részének megértéséhez elengedhetetlen ezek alapvető ismerete.
 
-A JWT működésének utána lehet nézni például [itt](https://supertokens.com/blog/what-is-jwt) és [itt](https://dev.to/kcdchennai/how-jwt-json-web-token-authentication-works-21e7).
+A JWT működésének nézzünk utána [itt](https://supertokens.com/blog/what-is-jwt) és/vagy [itt](https://dev.to/kcdchennai/how-jwt-json-web-token-authentication-works-21e7)!
 
 Összefoglalásképpen elmondható, hogy a JSON Web Token egy nyílt szabványban definiált JSON adatszerkezet, amely egy biztonságos és standardizált módszert biztosít az azonosításra és az adatátvitelre az interneten. A JWT tokenek lehetővé teszik az alkalmazások számára, hogy a felhasználók azonosítását és jogosultságkezelést végezzenek.
 
