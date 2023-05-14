@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryManagementComponent } from './category-management/category-management.component';
 import { LoginComponent } from './login/login.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
   {
@@ -16,11 +17,13 @@ const routes: Routes = [
   },
   {
     path: 'product-form',
-    component: ProductFormComponent
+    component: ProductFormComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
   },
   {
     path: 'product-form/:id',
-    component: ProductFormComponent
+    component: ProductFormComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
   },
   {
     path: 'categories',

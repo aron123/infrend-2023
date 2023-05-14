@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ export class AuthService {
 
   private TOKEN_KEY = 'accessToken';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   setToken(token: string) {
     localStorage.setItem(this.TOKEN_KEY, token);
@@ -23,5 +24,15 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  preventGuestAccess(): boolean {
+    const isLoggedIn = this.isLoggedIn();
+
+    if (!isLoggedIn) {
+      this.router.navigateByUrl('/login');
+    }
+
+    return isLoggedIn;
   }
 }
