@@ -105,7 +105,7 @@ Egyéb anyagok:
 - [Intro to Angular Reactive Forms](https://betterprogramming.pub/intro-to-angular-reactive-forms-fc5cd636ce1f)
 
 ## 11. hét
-1:N, N:M kapcsolatok implementálása kliens- és szerveroldalon.
+1:N kapcsolat implementálása kliens- és szerveroldalon (Termék -> Eladó).
 
 Projekt:
 - [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
@@ -113,7 +113,20 @@ Projekt:
 
 Egyéb anyagok:
 - [TypeORM - Many-to-one / one-to-many relations](https://typeorm.io/many-to-one-one-to-many-relations)
+
+## 12. hét
+N:M kapcsolatok implementálása kliens- és szerveroldalon (Termék -> Kategória).
+
+Projekt:
+- [Webshop projekt (kedd 16:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-k16)
+- [Webshop projekt (csütörtök 10:00)](https://github.com/aron123/infrend-2023/tree/master/webshop-cs10)
+
+Egyéb anyagok:
 - [TypeORM - Many-to-many relations](https://typeorm.io/many-to-many-relations)
+
+## Kiegészítő anyagok
+
+- [Felhasználókezelés, autentikáció](authentication.md)
 
 ## Elérhetőség
 Kiss Áron, tanszéki mérnök<br>

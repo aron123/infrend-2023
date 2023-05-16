@@ -37,7 +37,7 @@ Figyeljünk rá, hogy a `webshop-auth/server/src/data-source.ts` fájl a megfele
 
 ## Cél
 
-Célunk, hogy az olvasási műveletekhez (pl. termékek listázása) bárki hozzáférhessen, míg írási műveleteket (pl. új termék hozzáadása) kizárólag regisztrált felhasználók hajthassanak végre a rendszerben!
+Célunk, hogy az olvasási műveletekhez (pl. termékek listázása) bárki hozzáférhessen, míg írási műveleteket (pl. új termék hozzáadása) kizárólag regisztrált és bejelentkezett felhasználók hajthassanak végre a rendszerben!
 
 Nem célunk ugyanakkor ezen kívül más védelmi mechanizmusok alkalmazása (pl. annak megoldása, hogy a felhasználó csak a saját termékeit szerkeszthesse). Tekinthetjük ezt úgy is, hogy regisztrált felhasználók mindegyike Adminisztrátori jogkörrel rendelkezik.
 
@@ -77,9 +77,9 @@ email: string;
 password: string;
 ```
 
-A password mezőhöz tartozó `select` tulajdonságot `false`-ra állítottuk, így alapértelmezetten a felhasználó jelszava nem fog lekérdezésre kerülni, csak akkor, ha arra a szerveroldalon ténylegesen szükségünk van.
+A `password` mezőhöz tartozó `select` tulajdonságot `false`-ra állítottuk, így alapértelmezetten a felhasználó jelszava nem fog lekérdezésre kerülni, csak akkor, ha arra ténylegesen szükségünk van. Az `email` mezőre `unique` tulajdonságot állítottunk be, ez garantálja, hogy több felhasználónak ne lehessen azonos email címe.
 
-A regisztráció során megadott jelszóból [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) algoritmus segítségével [hash kódot fogunk képezni](https://nordpass.com/blog/password-hash/). Így a felhasználó jelszavát nem tároljuk, azonban a bejelentkezéskor ellenőrizni tudjuk, hogy helyes jelszót adott-e meg. Telepítsük ehhez a `bcrypt` csomagot, és az automatikus kódkiegészítéshez szükséges típusokat:
+A regisztráció során a megadott jelszóból [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) algoritmus segítségével [hash kódot fogunk képezni](https://nordpass.com/blog/password-hash/). Így a felhasználó jelszavát nem tároljuk (a hash kód közvetlenül nem fejthető vissza), azonban a bejelentkezéskor ellenőrizni tudjuk, hogy helyes jelszót adott-e meg. Telepítsük ehhez a `bcrypt` csomagot, és az automatikus kódkiegészítéshez szükséges típusokat:
 
 ```
 npm install bcrypt
@@ -127,11 +127,13 @@ Teszteljük a regisztráció működését Postman segítségével, pl. az aláb
 }
 ```
 
-Az adatbázisban a jelszóhoz tartozó hash-nek kell megjelennie.
+A kérést a `POST http://localhost:3000/api/users` végpontra kell küldeni.
+
+Az adatbázisban a jelszóhoz tartozó hash-nek meg kell jelennie a hozzáadott felhasználónál.
 
 ### Bejelentkezés
 
-Ezt követően tegyük lehetővé a bejelentkezést! Ennek során ellenőriznünk kell, hogy a felhasználó által megadott e-mail cím és jelszó egyezik-e az adatbázisban szereplő adatokkal. Amennyiben igen, JWT tokent kell kiállítani a kliens számára.
+Ezt követően tegyük lehetővé a bejelentkezést! Ennek során ellenőriznünk kell, hogy a felhasználó által megadott e-mail cím és jelszó egyezik-e az adatbázisban tárolt adatokkal. Amennyiben igen, JWT tokent kell kiállítani a kliens számára.
 
 Adjunk hozzá egy `login` metódust a `UserController`-hez:
 
@@ -176,7 +178,7 @@ Teszteljük Postman-ben, hogy mi történik megfelelő, illetve hibás adatok be
 }
 ```
 
-Ezt követően implementáljuk a JWT token generálását! Először telepítsük a `jsonwebtoken` csomagot és a hozzá tartozó típusdefiníciókat:
+Ezt követően implementáljuk a JWT token generálását! Ehhez telepítsük a `jsonwebtoken` csomagot és a hozzá tartozó típusdefiníciókat:
 
 ```
 npm install jsonwebtoken
@@ -189,7 +191,7 @@ A `UserController`-ben importáljuk a csomagot:
 import jwt from 'jsonwebtoken';
 ```
 
-Majd a `login` metódus végét cseréljük ki a következőre:
+Majd a `login` metódus végén szereplő TODO-t és `res.json` hívást cseréljük ki a következőre:
 
 ```ts
 const token = jwt.sign({ id: user.id }, 'mySecretKey', { expiresIn: '2w' });
@@ -206,7 +208,7 @@ Teszteljük a belépést Postman-ben újra! A visszakapott JWT token tartalmát 
 
 A regisztrációt és a belépést már megvalósítottuk, következő feladatunk a szerver által biztosított írási műveletek védelme.
 
-Ehhez először telepítsük az `express-jwt` csomagot, ami a beérkező kérésben megkeresi a JWT tokent, majd ellenőrzi, hogy az érvényes-e (a saját titkos kulcsunkkal lett-e aláírva), és nem járt még le:
+Ehhez először telepítsük az `express-jwt` csomagot, ami a beérkező kérésben megkeresi a JWT tokent, majd ellenőrzi, hogy az érvényes-e (a saját titkos kulcsunkkal lett-e aláírva), és nem járt-e még le:
 
 ```
 npm install express-jwt
@@ -231,7 +233,7 @@ export const handleAuthorizationError = (err, req, res, next) => {
 };
 ```
 
-A `checkUser` függvény ellenőrzi a JWT tokent, melyet alapértelmezetten a kérés `Authorization` nevű fejlécéből olvas ki. A fejlécnek a következő formátumot kell követnie: `Authorization: Bearer <jwt_token>`.
+A `checkUser` függvény ellenőrzi a JWT tokent (a beállított titkos kulcs és a JWT token aláírásához használt algoritmus alapján), melyet alapértelmezetten a kérés `Authorization` nevű fejlécéből olvas ki. A fejlécnek a következő formátumot kell követnie: `Authorization: Bearer <jwt_token>`.
 
 A `handleAuthorizationError` függvény kezeli azt, ha a token valamilyen okból nem érvényes (pl. érvénytelen az aláírása vagy lejárt), vagy nem is szerepel a kérésben.
 
@@ -271,7 +273,7 @@ export function getRoutes() {
 }
 ```
 
-A megfelelő útvonalak esetében az adott műveletet végrehajtó kontroller metódus elé így beékelődik plusz lépésként a JWT token ellenőrzése.
+A megfelelő útvonalak esetében a kontroller metódus elé így plusz lépésként beékelődik a JWT token ellenőrzése is.
 
 Kezeljük azt az esetet, amikor a `checkUser` middleware hibát dob! Ehhez az `index.ts` fájlban módosítsuk a router regisztrációját a következőképpen:
 
@@ -279,9 +281,9 @@ Kezeljük azt az esetet, amikor a `checkUser` middleware hibát dob! Ehhez az `i
 app.use('/api', getRoutes(), handleAuthorizationError);
 ```
 
-Hiba esetén így a `handleAuthorizationError` middleware fut le, mely megfelelő státuszkódot és üzenetet küld vissza a kliensnek. Ha ezt a middleware-t nem használnánk, az Express alapértelmezett, HTML alapú hibaoldala jelenne meg helyette.
+Hiba esetén így a `handleAuthorizationError` függvény fut le, mely megfelelő státuszkódot és hibaüzenetet küld vissza a kliensnek. Ha ezt a middleware-t nem használnánk, az Express alapértelmezett, HTML alapú hibaoldala jelenne meg helyette.
 
-Most küldjünk egy kérést Postman-ben: `GET http://localhost:3000/api/products/1`
+Most küldjünk egy kérést Postman-ben, pl: `GET http://localhost:3000/api/products/1`
 
 Mivel ez egy olvasási művelet, a megfelelő termék adatait kell visszakapnunk.
 
@@ -289,9 +291,9 @@ Most próbáljuk meg törölni a terméket: `DELETE http://localhost:3000/api/pr
 
 Ebben az esetben az autentikációra vonatkozó hibaüzenetet, és a `401 Unauthorized` státuszkódot kell visszakapnunk.
 
-Váltsunk át a Postman-ben az "Authorization" fülre, a "Type" legördülő menüből válasszuk ki a "Bearer token" lehetőséget, majd a jobb oldalon szereplő "Token" mezőbe másoljuk be a korábban elmentett JWT tokenünket! Ha átváltunk a "Headers" fülre, látható, hogy a Postman létrehozta az `Authorization` fejlécet, melyben a megadott token szerepel.
+Váltsunk át a Postman-ben az "Authorization" fülre, a "Type" legördülő menüből válasszuk ki a "Bearer token" lehetőséget! Ezt követően a jobb oldalon szereplő "Token" mezőbe másoljuk be a [korábban elmentett](#bejelentkezs) JWT tokenünket! Ha átváltunk a "Headers" fülre, látható, hogy a Postman létrehozta az `Authorization` fejlécet, melyben a megadott token szerepel, a szerver által elvárt `Bearer <jwt_token>` formátumban.
 
-Most küldjük be újra a törlésre vonatkozó kérést! Ha rendszerünk megfelelően működik, 200-as státuszkódot kell válaszként visszakapnunk. Ez azt jelenti, hogy az 1-es termék törlésre került.
+Most küldjük be újra a törlésre vonatkozó kérést! Ha rendszerünk megfelelően működik, 200-as státuszkódot kell válaszként visszakapnunk. Ez azt jelenti, hogy a termék törlésre került.
 
 Szerveroldalunk védelmével el is készültünk. Nézzük a kliensoldalt!
 
@@ -302,7 +304,7 @@ A kliensoldal esetében a védelem azt fogja jelenti, hogy a szerverről kapott 
 Ezen túlmenően elsősorban annyi a dolgunk, hogy a felhasználó által nem elérhető műveletekhez tartozó grafikus elemeket elrejtsük, amennyiben a felhasználónk nem jelentkezett be.
 
 ### Regisztrációs felület
-A regisztrációs felület létrehozásában nincs újdonság, egy form-ot kell létrehoznunk, a megadott adatokat pedig a `/api/users` útvonalra POST-olnunk.
+A regisztrációs felület létrehozásában nincs újdonság, egy form-ot kell készítenünk, a megadott adatokat pedig a `/api/users` útvonalra POST-olnunk.
 
 A termék űrlap (`ProductFormComponent`) alapján könnyedén elkészíthető ez a komponens.
 
@@ -348,7 +350,7 @@ export class AuthService {
 }
 ```
 
-A tokent [LocalStorage-ban](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) tároljuk, mely az alkalmazásunkhoz tartozó kulcs-érték tároló. Használatára korábban, a ChatGPT projektünknél már láthattunk példát.
+A tokent [LocalStorage-ban](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) tároljuk, mely az alkalmazásunkhoz tartozó kulcs-érték tároló. Használatára korábban, a ChatGPT projektünknél már láthattunk példát, itt tároltuk el a felhasználó nevét.
 
 ### Bejelentkezés
 Bejelentkezés oldalunk létrehozása előtt egészítsük ki típusdefinícióinkat a `models/index.d.ts` fájlban a következőkkel:
@@ -372,7 +374,7 @@ login(data: LoginDTO) {
 }
 ```
 
-Készítsük el a regisztrációs felületet. Ehhez generáljunk egy komponenst `LoginComponent` néven:
+Készítsük el a bejelentkezési felületet! Ehhez generáljunk egy komponenst `LoginComponent` néven:
 
 ```
 ng g c login
@@ -457,7 +459,7 @@ export class LoginComponent {
 
 Sikeres belépés esetén a szerver által küldött JWT tokent elmentjük, majd a főoldalra navigálunk. Ha a szerverről hibaüzenet érkezik vissza, azt értesítésként megjelenítjük a felhasználó számára.
 
-Ellenőrizzük, hogy be tudunk-e lépni a megfelelő adatok megadásakor!
+Ellenőrizzük, hogy hibás adatok esetén hibaüzenet jelenik-e meg, illetve be tudunk-e lépni a megfelelő adatok megadásakor!
 
 Ezt követően hozzuk létre a "Belépés" menüt az `AppComponent` navigációs sávján, a többi menüpont után:
 
@@ -471,11 +473,11 @@ Ezt követően hozzuk létre a "Belépés" menüt az `AppComponent` navigációs
 
 Az elmentett JWT tokent mostantól el kell helyeznünk minden, saját szerverünk felé kimenő kérésben. 
 
-Alkalmazásunk külső API-t (pl. Google Maps) nem használ, így gyakorlatilag minden kimenő kérésben szerepeltethetjük a tokent. Ha mégis használnánk ilyen külső API-t, oda kellene figyelnünk arra, hogy csak a saját szerverünk felé menő kéréseknél történjen meg a token használata.
+Alkalmazásunk külső API-t (pl. Google Maps) nem használ, így tulajdonképpen minden kimenő kérésben szerepeltethetjük a tokent. Ha mégis használnánk ilyen külső API-t, oda kellene figyelnünk arra, hogy csak a saját szerverünk felé menő kéréseknél történjen meg a token használata.
 
 A szerver a következő formátumban várja a tokent: `Authorization: Bearer eyJhbGciOiJIUz...`
 
-Ahhoz, hogy ezt minden kérésben szerepeltethessük, egy [HttpInterceptor-t](https://angular.io/guide/http-intercept-requests-and-responses) fogunk használni, mely egy interfész, ami az `intercept()` metódust deklarálja. Ez a metódus minden kimenő kérés esetén le fog futni, segítségével többek között változtatni lehet a kérés tartalmát.
+Ahhoz, hogy ezt minden kérésben szerepeltethessük, egy ún. [HttpInterceptor-t](https://angular.io/guide/http-intercept-requests-and-responses) fogunk használni, mely egy interfész, ami az `intercept()` metódust deklarálja. Ez a metódus minden kimenő kérés esetén le fog futni, segítségével többek között változtatni lehet a kérés tartalmát.
 
 Hozzunk létre az `AccessTokenInterceptor`-t a következő parancsokkal:
 
@@ -511,13 +513,11 @@ export class AccessTokenInterceptor implements HttpInterceptor {
 }
 ```
 
-Ahogy a kódban látható, a `request` [immutable objektum](https://en.wikipedia.org/wiki/Immutable_object), így közvetlen módosítása nem lehetséges.
+A `request` egy [immutable objektum](https://en.wikipedia.org/wiki/Immutable_object), így közvetlen módosítása nem lehetséges. Csak úgy változtathatjuk meg a kérést, ha új `HttpRequest` példányt hozunk létre. Ezt segíti a `clone` metódus, ami az eredeti kérés tartalmán az átadott módosításokat (`setHeaders`) végrehajtva új kérés objektumot hoz létre. 
 
-Csak úgy változtathatjuk meg a kérést, ha új `HttpRequest` példányt hozunk létre. Ezt segíti a `clone` metódus, ami az eredeti kérés tartalmán az átadott módosításokat (`setHeaders`) végrehajtva új kérés objektumot hoz létre. 
+Ezt követően a transzformált kérést tovább adjuk a következő feldolgozó függvénynek (jelen esetben ez a `HttpClient` megfelelő metódusát fogja jelenteni, amely ténylegesen elküldi a kérést a szervernek).
 
-Ezt követően a transzformált kérést tovább adjuk a következő feldolgozó függvénynek (jelen esetben ez a `HttpClient` megfelelő metódusát fogja jelenteni, amely elküldi a kérést a szervernek).
-
-Ahhoz, hogy az Angular ténylegesen használja is a létrehozott interceptor-t, provider-ként regisztrálnunk kell azt az `AppModule`-ban:
+Ahhoz, hogy az Angular használja is a létrehozott interceptor-t, provider-ként regisztrálnunk kell azt az `AppModule`-ban:
 
 ```ts
 @NgModule({
@@ -534,7 +534,7 @@ Ahhoz, hogy az Angular ténylegesen használja is a létrehozott interceptor-t, 
 export class AppModule { }
 ```
 
-A `multi` beállítás azt jelzi, hogy több interceptor-unk is lehet. Ez később még lényeges lesz, hiszen a szerverről visszaérkező választ is figyelni fogjuk.
+A `multi` beállítás azt jelzi, hogy több interceptor-unk is lehet. Ez később még lényeges lesz, hiszen a szerverről visszaérkező választ is vizsgálni fogjuk.
 
 Mivel korábban már bejelentkeztünk, könnyen ellenőrizhetjük, hogy token-ünk ténylegesen szerepel-e a kimenő kérésekben. Nyissuk meg a Konzolt (F12), majd lépjünk át a Network fülre. Ezt követően nyissuk meg pl. a Kategóriák menüpontot!
 
@@ -544,7 +544,7 @@ A Network fülön megjelenő kérés fejlécei között meg kell találnunk az `
 
 ### HTTP válaszok kezelése
 
-A HTTP válaszok esetében érdemes figyelni azt, hogy `401 Unauthorized` státuszkód érkezik-e vissza a szerverünkről. Amennyiben igen, az azt jelenti, hogy a kliens nem küldött be JWT tokent egy írási művelethez, vagy a token nem érvényes, esetleg már lejárt. Ezekben az esetekben célszerű a LocalStorage-ban tárolt tokent törölni, és a belépés oldalra irányítani a felhasználót.
+A HTTP válaszok esetében érdemes figyelni azt, hogy `401 Unauthorized` státuszkód érkezik-e vissza a szerverünkről. Amennyiben igen, az azt jelenti, hogy a kliens nem küldött be JWT tokent egy írási művelethez, vagy a token nem érvényes, esetleg már lejárt. Ezekben az esetekben célszerű a `LocalStorage`-ban tárolt tokent törölni, és a belépés oldalra irányítani a felhasználót.
 
 Ehhez hozzunk létre az `UnauthorizedInterceptor`-t:
 
@@ -613,9 +613,9 @@ Próbáljunk meg a terméklistából törölni egy terméket! Azzal kell szembes
 
 Alkalmazásunk útvonalainak védelmére korábban, a ChatGPT projektben láthattunk már példát: azon felhasználókat, akik nem adták meg a nevüket, nem engedtük be a chat felületre.
 
-Alkalmazzuk ezt a védelmet itt is, azokra a komponensekre, amik kizárólag írási műveleteket biztosítanak! Ehhez hozzunk létre először egy guard függvényt az `AuthService`-ben!
+Alkalmazzuk ezt a védelmet itt is, azokra a komponensekre, amik kizárólag írási műveleteket biztosítanak! Ehhez hozzunk létre először egy függvényt az `AuthService`-ben!
 
-Az átirányítás miatt az Angular Router-re szükségünk van:
+Az átirányítás miatt az Angular Router-re szükségünk van, importáljuk ezt a kontrsuktorban:
 
 ```ts
 import { Router } from '@angular/router';
@@ -627,7 +627,7 @@ export class AuthService {
 //...
 ```
 
-Ezen kívül a metódust kell implementálnunk, ami átirányítja a felhasználót a belépés oldalra, amennyiben nem kívánt útvonalra téved:
+Ezen kívül azt a metódust kell implementálnunk, ami átirányítja a felhasználót a belépés oldalra, amennyiben nem kívánt útvonalra téved:
 
 ```ts
 preventGuestAccess(): boolean {
@@ -662,7 +662,7 @@ Ha ezt követően töröljük a `localStorage`-ból az elmentett tokent (`localS
 
 ### Kilépés
 
-Biztosítsuk a felhasználók számára a kilépés lehetőségét is! Ez mindössze annyiból áll, hogy elmentett token-jüket töröljük. Ezt követően a módosítási műveletek eléréséhez újra be kell majd jelentkezniük.
+Biztosítsuk a felhasználók számára a kilépés lehetőségét is! Ez mindössze annyiból áll, hogy az elmentett tokent töröljük. Ezt követően a módosítási műveletek eléréséhez újra be kell majd jelentkezni.
 
 Ehhez implementáljuk a kilépés funkciót az `AppComponent`-ben:
 
@@ -687,7 +687,7 @@ export class AppComponent {
 }
 ```
 
-Majd a hozzá tartozó template-ben hozzunk létre egy Kilépés menüpontot:
+Majd a hozzá tartozó template-ben hozzunk létre egy "Kilépés" menüpontot:
 
 ```html
 <li class="nav-item">
@@ -738,7 +738,7 @@ Ezt követően módosítsuk a menüpontok láthatóságát:
 
 Ezt követően haladjunk oldalról oldalra! Kezdjünk a `ProductListComponent`-tel! Itt a Szerkesztés / Törlés gombokat kell elrejteni a vendégek számára.
 
-Az AuthService-t adjuk hozzá a konstruktorhoz:
+Az `AuthService`-t adjuk hozzá a konstruktorhoz:
 
 ```ts
 public authService: AuthService,
@@ -761,7 +761,7 @@ A template-ben pedig vegyük is használatba:
 
 Az "Új termék" menüt nem érik el a vendégek, így ezzel nincs további teendőnk.
 
-A fentiek alapján módosítsuk viszont a `CategoryManagementComponent`-et. Itt az a cél, hogy a vendégek csak a kategória listát lássák, a Törlés gombot, és az űrlapot ne!
+A fentiek alapján módosítsuk viszont a `CategoryManagementComponent`-et is. Itt az a cél, hogy a vendégek csak a kategória listát lássák, a Törlés gombot, és az űrlapot ne!
 
 Ezzel elkészült alkalmazásunk alapvető autentikációja!
 
