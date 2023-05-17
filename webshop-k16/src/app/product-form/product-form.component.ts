@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ProductDTO, UserDTO } from 'models';
+import { CategoryDTO, ProductDTO, UserDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from '../services/category.service';
 import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
 
@@ -17,6 +18,8 @@ export class ProductFormComponent implements OnInit {
 
   users: UserDTO[] = [];
 
+  categories: CategoryDTO[] = [];
+
   productForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     title: this.formBuilder.control(''),
@@ -25,13 +28,14 @@ export class ProductFormComponent implements OnInit {
     imgUrl: this.formBuilder.control(''),
     brand: this.formBuilder.control(''),
     uploader: this.formBuilder.control<null | UserDTO>(null),
-    //categories: this.formBuilder.array([])
+    categories: this.formBuilder.control<CategoryDTO[]>([])
   });
 
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private userService: UserService,
+    private categoryService: CategoryService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute) { }
 
@@ -55,6 +59,14 @@ export class ProductFormComponent implements OnInit {
       error: (err) => {
         console.error(err);
         this.toastrService.error('A felhasználók betöltése sikertelen.', 'Hiba');
+      }
+    });
+
+    this.categoryService.getAll().subscribe({
+      next: (categories) => this.categories = categories,
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('A kategóriák betöltése sikertelen.', 'Hiba');
       }
     });
   }
@@ -85,7 +97,7 @@ export class ProductFormComponent implements OnInit {
     
   }
 
-  compareUsers(user1: UserDTO, user2: UserDTO) {
-    return user1 && user2 && user1.id == user2.id;
+  compareObjects(obj1: any, obj2: any) {
+    return obj1 && obj2 && obj1.id == obj2.id;
   }
 }
