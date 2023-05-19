@@ -615,7 +615,7 @@ Alkalmazásunk útvonalainak védelmére korábban, a ChatGPT projektben láthat
 
 Alkalmazzuk ezt a védelmet itt is, azokra a komponensekre, amik kizárólag írási műveleteket biztosítanak! Ehhez hozzunk létre először egy függvényt az `AuthService`-ben!
 
-Az átirányítás miatt az Angular Router-re szükségünk van, importáljuk ezt a kontrsuktorban:
+Az átirányítás miatt az Angular Router-re szükségünk van, importáljuk ezt a kontstruktorban:
 
 ```ts
 import { Router } from '@angular/router';
