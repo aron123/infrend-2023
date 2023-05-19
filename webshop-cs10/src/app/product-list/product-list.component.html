@@ -23,6 +23,9 @@
             </div>
             <div class="col-md-9">
                 {{ product.description | slice:0:200 }}
+                <p *ngIf="product.categories.length > 0">
+                    Kategóriák: {{ getCategoryList(product.categories) }}
+                </p>
             </div>
         </div>
     </div>

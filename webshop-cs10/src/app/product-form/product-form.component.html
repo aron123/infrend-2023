@@ -37,6 +37,27 @@
                 <input type="text" class="form-control"
                     id="brand" name="brand" formControlName="brand">
             </div>
+            <div class="mb-3">
+                <label for="categories" class="form-label">Kategóriák</label>
+                <select class="form-select" id="categories" multiple
+                    formControlName="categories" [compareWith]="compareObjects">
+                    <option [ngValue]="{ id: category.id }"
+                        *ngFor="let category of categories">
+                        {{ category.title }}
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="seller" class="form-label">Eladó</label>
+                <select class="form-select" id="seller"
+                    formControlName="seller" [compareWith]="compareObjects">
+                    <option [ngValue]="null">Nincs felhasználó</option>
+                    <option [ngValue]="{ id: user.id }"
+                        *ngFor="let user of users">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </option>
+                </select>
+            </div>
             <div class="text-end">
                 <button class="btn btn-outline-primary"
                     (click)="saveProduct()">Mentés</button>

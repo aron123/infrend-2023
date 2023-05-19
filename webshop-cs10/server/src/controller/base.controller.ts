@@ -30,10 +30,9 @@ export abstract class Controller {
             const entity = this.repository.create(req.body as object);
             entity.id = null;
             
-            const result = await this.repository.insert(entity);
-            const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
+            const result = await this.repository.save(entity);
  
-            res.json(inserted);
+            res.json(result);
         } catch (err) {
             this.handleError(res, err);
         }
@@ -62,7 +61,7 @@ export abstract class Controller {
                 return this.handleError(res, null, 404, 'No entity found with this id.');
             }
 
-            await this.repository.delete(entity.id);
+            await this.repository.remove(entity);
             res.status(200).send();
         } catch (err) {
             this.handleError(res, err);

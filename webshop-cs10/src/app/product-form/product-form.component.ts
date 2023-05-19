@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ProductDTO } from 'models';
+import { CategoryDTO, ProductDTO, UserDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from '../services/category.service';
 import { ProductService } from '../services/product.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-product-form',
@@ -17,13 +19,21 @@ export class ProductFormComponent implements OnInit {
     description: this.formBuilder.control(''),
     price: this.formBuilder.control(0),
     imgUrl: this.formBuilder.control(''),
-    brand: this.formBuilder.control('')
+    brand: this.formBuilder.control(''),
+    categories: this.formBuilder.control<CategoryDTO[]>([]),
+    seller: this.formBuilder.control<UserDTO | null>(null)
   });
 
   isNewProduct = true;
 
+  categories: CategoryDTO[] = [];
+
+  users: UserDTO[] = [];
+
   constructor(
     private productService: ProductService,
+    private categoryService: CategoryService,
+    private userService: UserService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) { }
@@ -44,6 +54,22 @@ export class ProductFormComponent implements OnInit {
         }
       });
     }
+
+    this.categoryService.getAll().subscribe({
+      next: (categories) => this.categories = categories,
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('Hiba a kategóriák betöltésekor.', 'Hiba');
+      }
+    });
+
+    this.userService.getAll().subscribe({
+      next: (users) => this.users = users,
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('Hiba a felhasználók betöltésekor.', 'Hiba');
+      }
+    });
   }
 
   saveProduct() {
@@ -72,5 +98,9 @@ export class ProductFormComponent implements OnInit {
       })
     }
     
+  }
+
+  compareObjects(obj1: any, obj2: any): boolean {
+    return obj1 && obj2 && obj1.id == obj2.id;
   }
 }

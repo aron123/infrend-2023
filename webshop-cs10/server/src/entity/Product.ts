@@ -1,5 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ProductDTO } from '../../../models';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { CategoryDTO, ProductDTO } from '../../../models';
+import { Category } from './Category';
+import { User } from './User';
 
 @Entity()
 export class Product implements ProductDTO {
@@ -20,4 +22,11 @@ export class Product implements ProductDTO {
     
     @Column({ nullable: true })
     brand: string;
+
+    @ManyToMany(() => Category, { eager: true })
+    @JoinTable()
+    categories: CategoryDTO[];
+
+    @ManyToOne(() => User, (user) => user.products, { eager: true })
+    seller: User;
 }

@@ -1,5 +1,7 @@
 import express from 'express';
+import { CategoryController } from './controller/category.controller';
 import { ProductController } from './controller/product.controller';
+import { UserController } from './controller/user.controller';
 
 export function getRoutes() {
     const router = express.Router();
@@ -11,6 +13,18 @@ export function getRoutes() {
     router.post('/products', productController.create);
     router.put('/products', productController.update);
     router.delete('/products/:id', productController.delete);
+
+    const categoryController = new CategoryController();
+
+    router.get('/categories', categoryController.getAll);
+    router.get('/categories/:id', categoryController.getOne);
+    router.post('/categories', categoryController.create);
+    router.put('/categories', categoryController.update);
+    router.delete('/categories/:id', categoryController.delete);
+
+    const userController = new UserController();
+
+    router.get('/users', userController.getAll);
 
     return router;
 }
