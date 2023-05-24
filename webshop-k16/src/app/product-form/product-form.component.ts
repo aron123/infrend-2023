@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -27,6 +28,7 @@ export class ProductFormComponent implements OnInit {
     price: this.formBuilder.control(0),
     imgUrl: this.formBuilder.control(''),
     brand: this.formBuilder.control(''),
+    expiration: this.formBuilder.control(new Date().toISOString().split('T')[0]),
     uploader: this.formBuilder.control<null | UserDTO>(null),
     categories: this.formBuilder.control<CategoryDTO[]>([])
   });

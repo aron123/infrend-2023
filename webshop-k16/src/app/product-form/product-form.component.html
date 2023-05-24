@@ -38,6 +38,11 @@
                     formControlName="brand">
             </div>
             <div class="mb-3">
+                <label for="expiration" class="form-label">Lejárat</label>
+                <input type="date" class="form-control" id="expiration" name="expiration"
+                    formControlName="expiration">
+            </div>
+            <div class="mb-3">
                 <label for="uploader" class="form-label">Feltöltő:</label>
                 <select name="uploader" id="uploader" class="form-select"
                     formControlName="uploader" [compareWith]="compareObjects">

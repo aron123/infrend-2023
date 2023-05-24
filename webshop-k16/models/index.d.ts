@@ -16,6 +16,7 @@ export interface ProductDTO {
     price: number;
     imgUrl: string;
     brand: string;
+    expiration: string;
     uploader: null | UserDTO;
     categories: CategoryDTO[];
 }

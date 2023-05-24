@@ -24,6 +24,9 @@ export class Product implements ProductDTO {
     @Column({ nullable: true })
     brand: string;
 
+    @Column({ type: 'date', nullable: true })
+    expiration: string;
+
     @ManyToOne(() => User, (user) => user.products, { eager: true })
     uploader: User;
 
