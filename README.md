@@ -1,3 +1,7 @@
+<h1 style="color: red">AZ AKTUÁLIS FÉLÉV ANYAGA ITT ÉRHETŐ EL:<br>
+https://aron123.github.io/infrend-2024/
+</h1>
+
 # Informatikai rendszerek építése (2022/23. II. félév)
 
 - [**Beadandó információk**](assignment.md)
